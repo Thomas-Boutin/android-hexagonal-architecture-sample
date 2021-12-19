@@ -8,6 +8,7 @@ buildscript {
         // App dependencies
         androidGradlePluginVersion = '7.0.4'
         appCompatVersion = '1.4.0'
+        composeVersion = '1.0.5'
         coreKtxVersion = '1.7.0'
         espressoVersion = '3.4.0'
         junitVersion = '4.13.2'
