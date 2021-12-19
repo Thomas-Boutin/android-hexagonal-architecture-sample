@@ -11,6 +11,7 @@ buildscript {
         composeVersion = '1.0.5'
         coreKtxVersion = '1.7.0'
         espressoVersion = '3.4.0'
+        hiltVersion = '2.38.1'
         junitVersion = '4.13.2'
         kotlinGradlePluginVersion = '1.5.31'
         testExtJunitVersion = '1.1.3'
@@ -22,8 +23,8 @@ buildscript {
     }
     dependencies {
         classpath "com.android.tools.build:gradle:$androidGradlePluginVersion"
+        classpath "com.google.dagger:hilt-android-gradle-plugin:$hiltVersion"
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlinGradlePluginVersion"
-
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }

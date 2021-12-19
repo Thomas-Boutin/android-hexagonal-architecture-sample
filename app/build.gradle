@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
+    id 'dagger.hilt.android.plugin'
     id 'kotlin-android'
+    id 'kotlin-kapt'
 }
 
 android {
@@ -41,6 +43,8 @@ dependencies {
     implementation("androidx.compose.material:material-icons-extended:$rootProject.composeVersion")
     implementation("androidx.compose.runtime:runtime-livedata:$rootProject.composeVersion")
     implementation "androidx.core:core-ktx:$rootProject.coreKtxVersion"
+    implementation "com.google.dagger:hilt-android:$hiltVersion"
+    kapt "com.google.dagger:hilt-compiler:$rootProject.hiltVersion"
     testImplementation "junit:junit:$rootProject.junitVersion"
     androidTestImplementation("androidx.compose.ui:ui-test-junit4:$rootProject.composeVersion")
     androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
