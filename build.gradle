@@ -2,8 +2,9 @@
 buildscript {
     ext {
         // Sdk and tools
+        compileSdkVersion = 31
         minSdkVersion = 21
-        targetSdkVersion = 30
+        targetSdkVersion = 31
 
         // App dependencies
         androidGradlePluginVersion = '7.0.4'

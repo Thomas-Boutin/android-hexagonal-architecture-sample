@@ -6,10 +6,9 @@ plugins {
 }
 
 android {
-    compileSdk 30
-
     defaultConfig {
         applicationId "fr.sample.hexagonalarchitecture"
+        compileSdk rootProject.compileSdkVersion
         minSdk rootProject.minSdkVersion
         targetSdk rootProject.targetSdkVersion
         versionCode 1
