@@ -39,6 +39,7 @@ android {
 }
 
 dependencies {
+    implementation project(':feature_home')
     implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "com.google.dagger:hilt-android:$hiltVersion"
