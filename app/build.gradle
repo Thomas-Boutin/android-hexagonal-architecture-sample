@@ -39,12 +39,15 @@ android {
 }
 
 dependencies {
+    androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
+    androidTestImplementation "androidx.test.ext:junit:$rootProject.testExtJunitVersion"
+
     implementation project(':feature_home')
     implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "com.google.dagger:hilt-android:$hiltVersion"
+
     kapt "com.google.dagger:hilt-compiler:$rootProject.hiltVersion"
+
     testImplementation "junit:junit:$rootProject.junitVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
-    androidTestImplementation "androidx.test.ext:junit:$rootProject.testExtJunitVersion"
 }
