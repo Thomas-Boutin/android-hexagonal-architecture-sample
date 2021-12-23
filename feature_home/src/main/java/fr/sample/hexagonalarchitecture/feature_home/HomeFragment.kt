@@ -11,6 +11,7 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.fragment.app.Fragment
+import fr.sample.hexagonalarchitecture.commons_android.theme.MyApplicationTheme
 import fr.sample.hexagonalarchitecture.feature_home.databinding.FragmentHomeBinding
 
 class HomeFragment : Fragment() {
@@ -21,27 +22,30 @@ class HomeFragment : Fragment() {
     ): View {
         return FragmentHomeBinding
             .inflate(inflater, container, false)
-            .apply { body.init() }
+            .apply { screenContainer.init() }
             .root
     }
 
     private fun ComposeView.init() {
         setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
         setContent {
-            Body()
+            HomeScreen()
         }
     }
 }
 
 @Composable
-fun Body() {
-    MaterialTheme {
-        Text("Hello Compose!")
+fun HomeScreen() {
+    MyApplicationTheme {
+        Text(
+            text = "Hello Compose!",
+            style = MaterialTheme.typography.body1,
+        )
     }
 }
 
 @Preview
 @Composable
 fun DefaultPreview() {
-    Body()
+    HomeScreen()
 }
