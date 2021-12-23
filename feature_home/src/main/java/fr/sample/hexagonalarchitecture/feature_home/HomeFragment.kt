@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
@@ -26,26 +28,43 @@ class HomeFragment : Fragment() {
             .root
     }
 
+    @Composable
+    fun HomeScreen() {
+        MyApplicationTheme {
+            LazyColumn {
+                items(characters) { character ->
+                    Character(character)
+                }
+            }
+        }
+    }
+
+    @Composable
+    private fun Character(character: String) {
+        Text(
+            text = "Hello $character!",
+            style = MaterialTheme.typography.body1,
+        )
+    }
+
+    @Preview
+    @Composable
+    fun DefaultPreview() {
+        HomeScreen()
+    }
+
     private fun ComposeView.init() {
         setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
         setContent {
             HomeScreen()
         }
     }
-}
 
-@Composable
-fun HomeScreen() {
-    MyApplicationTheme {
-        Text(
-            text = "Hello Compose!",
-            style = MaterialTheme.typography.body1,
+    companion object {
+        private val characters = listOf(
+            "bob",
+            "pamela",
+            "gaga"
         )
     }
-}
-
-@Preview
-@Composable
-fun DefaultPreview() {
-    HomeScreen()
 }
