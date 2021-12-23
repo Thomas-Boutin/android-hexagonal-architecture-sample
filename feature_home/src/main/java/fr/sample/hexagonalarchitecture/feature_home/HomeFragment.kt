@@ -13,10 +13,15 @@ import androidx.compose.ui.platform.ComposeView
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import dagger.hilt.android.AndroidEntryPoint
 import fr.sample.hexagonalarchitecture.commons_android.theme.MyApplicationTheme
 import fr.sample.hexagonalarchitecture.feature_home.databinding.FragmentHomeBinding
 
+@AndroidEntryPoint
 class HomeFragment : Fragment() {
+    private val viewModel: HomeViewModel by viewModels()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -28,43 +33,41 @@ class HomeFragment : Fragment() {
             .root
     }
 
-    @Composable
-    fun HomeScreen() {
-        MyApplicationTheme {
-            LazyColumn {
-                items(characters) { character ->
-                    Character(character)
-                }
-            }
+    private fun ComposeView.init() {
+        setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
+        setContent {
+            HomeScreen(viewModel.characters)
         }
-    }
-
-    @Composable
-    private fun Character(character: String) {
-        Text(
-            text = "Hello $character!",
-            style = MaterialTheme.typography.body1,
-        )
     }
 
     @Preview
     @Composable
-    fun DefaultPreview() {
-        HomeScreen()
-    }
-
-    private fun ComposeView.init() {
-        setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
-        setContent {
-            HomeScreen()
-        }
-    }
-
-    companion object {
-        private val characters = listOf(
-            "bob",
-            "pamela",
-            "gaga"
+    private fun DefaultPreview() {
+        HomeScreen(
+            listOf(
+                "bob",
+                "pamela",
+                "gaga"
+            )
         )
     }
+}
+
+@Composable
+fun HomeScreen(characters: List<String>) {
+    MyApplicationTheme {
+        LazyColumn {
+            items(characters) { character ->
+                Character(character)
+            }
+        }
+    }
+}
+
+@Composable
+private fun Character(character: String) {
+    Text(
+        text = "Hello $character!",
+        style = MaterialTheme.typography.body1,
+    )
 }
