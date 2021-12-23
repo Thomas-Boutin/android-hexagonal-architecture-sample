@@ -18,6 +18,7 @@ buildscript {
         junitVersion = '4.13.2'
         kotlinGradlePluginVersion = '1.6.10'
         lifecycleVersion = '2.4.0'
+        mockkVersion = '1.12.1'
         navigationVersion = '2.3.5'
         testExtJunitVersion = '1.1.3'
     }
