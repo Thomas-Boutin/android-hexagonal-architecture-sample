@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.fragment.app.Fragment
@@ -36,30 +39,39 @@ class HomeFragment : Fragment() {
     private fun ComposeView.init() {
         setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
         setContent {
-            HomeScreen(viewModel.characters)
+            MyApplicationTheme {
+                Surface {
+                    HomeFragmentScreen(viewModel)
+                }
+            }
         }
     }
+}
 
-    @Preview
-    @Composable
-    private fun DefaultPreview() {
-        HomeScreen(
-            listOf(
-                "bob",
-                "pamela",
-                "gaga"
-            )
-        )
+@Composable
+fun HomeFragmentScreen(viewModel: HomeViewModel) {
+    viewModel.characters.value.onSuccess {
+        HomeScreen(characters = it)
+    }.onFailure {
+        Toast.makeText(LocalContext.current, it.message, Toast.LENGTH_SHORT).show()
+    }
+}
+
+@Preview
+@Composable
+fun DefaultPreview() {
+    MyApplicationTheme {
+        Surface {
+            HomeScreen(listOf("gaga", "pamela", "yes"))
+        }
     }
 }
 
 @Composable
 fun HomeScreen(characters: List<String>) {
-    MyApplicationTheme {
-        LazyColumn {
-            items(characters) { character ->
-                Character(character)
-            }
+    LazyColumn {
+        items(characters) { character ->
+            Character(character)
         }
     }
 }

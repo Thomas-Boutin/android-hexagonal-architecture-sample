@@ -9,3 +9,4 @@ rootProject.name = "HexagonalArchitectureSample"
 include ':app'
 include ':feature_home'
 include ':commons_android'
+include ':core_characters'

@@ -23,12 +23,19 @@ class HomeViewModelTest {
     }
 
     @Test
+    fun `should have no characters on init`() = runTest {
+        advanceUntilIdle()
+
+        assertThat(viewModel.characters.value.getOrNull()).isEmpty()
+    }
+
+    @Test
     fun `should fetch new characters`() = runTest {
         viewModel.fetchCharacters()
 
         advanceUntilIdle()
 
-        assertThat(viewModel.characters).containsExactly(
+        assertThat(viewModel.characters.value.getOrNull()).containsExactly(
             "bob",
             "pamela",
             "gaga"
@@ -41,10 +48,6 @@ class HomeViewModelTest {
 
         advanceUntilIdle()
 
-        assertThat(viewModel.characters).containsExactly(
-            "bob",
-            "pamela",
-            "gaga"
-        )
+        assertThat(viewModel.characters.value.isFailure).isTrue()
     }
 }

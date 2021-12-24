@@ -46,19 +46,11 @@ android {
 
 dependencies {
     androidTestImplementation "androidx.compose.ui:ui-test-junit4:$rootProject.composeVersion"
-    androidTestImplementation "androidx.test.espresso:espresso-core:$rootProject.espressoVersion"
     androidTestImplementation "androidx.test.ext:junit:$rootProject.testExtJunitVersion"
 
     implementation project(':commons_android')
-    implementation project(':core_characters')
 
     implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
-    implementation "androidx.compose.ui:ui:$rootProject.composeVersion"
-    implementation "androidx.compose.foundation:foundation:$rootProject.composeVersion"
-    implementation "androidx.compose.material:material:$rootProject.composeVersion"
-    implementation "androidx.compose.material:material-icons-core:$rootProject.composeVersion"
-    implementation "androidx.compose.material:material-icons-extended:$rootProject.composeVersion"
-    implementation "androidx.compose.runtime:runtime-livedata:$rootProject.composeVersion"
     implementation "androidx.core:core-ktx:$rootProject.coreKtxVersion"
     implementation "androidx.fragment:fragment-ktx:$rootProject.fragmentVersion"
     implementation "androidx.lifecycle:lifecycle-common-java8:$rootProject.lifecycleVersion"
@@ -70,8 +62,6 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
     implementation "com.google.dagger:hilt-android:$rootProject.hiltVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutinesVersion"
-
-    debugImplementation "androidx.compose.ui:ui-tooling:$rootProject.composeVersion"
 
     kapt "com.google.dagger:hilt-compiler:$rootProject.hiltVersion"
 
