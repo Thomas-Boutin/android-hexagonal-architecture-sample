@@ -68,10 +68,14 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-savedstate:$rootProject.lifecycleVersion"
     implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
     implementation "com.google.dagger:hilt-android:$rootProject.hiltVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines:$rootProject.coroutinesVersion"
 
     debugImplementation "androidx.compose.ui:ui-tooling:$rootProject.composeVersion"
 
     kapt "com.google.dagger:hilt-compiler:$rootProject.hiltVersion"
 
     testImplementation "io.mockk:mockk:$rootProject.mockkVersion"
+    testImplementation "junit:junit:$rootProject.junitVersion"
+    testImplementation "org.jetbrains.kotlinx:kotlinx-coroutines-test:$rootProject.coroutinesVersion"
+    testImplementation "org.assertj:assertj-core:$rootProject.assertJVersion"
 }
