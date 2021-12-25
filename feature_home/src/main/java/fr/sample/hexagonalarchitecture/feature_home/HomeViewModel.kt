@@ -12,7 +12,11 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val charactersInputAdapter: CharactersInputAdapter,
 ) : ViewModel() {
-    var characters = mutableStateOf(Result.success(emptyList<String>()))
+    var characters = mutableStateOf(
+        Result.success(
+            emptyList<fr.sample.hexagonalarchitecture.core_characters.domain.Character>()
+        )
+    )
         private set
 
     fun fetchCharacters() = viewModelScope.launch {

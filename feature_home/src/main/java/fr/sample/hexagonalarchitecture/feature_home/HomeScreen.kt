@@ -13,12 +13,14 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.capitalize
+import androidx.compose.ui.text.intl.LocaleList
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import fr.sample.hexagonalarchitecture.commons_android.theme.MyApplicationTheme
 
 @Composable
-fun HomeScreen(characters: List<String>) {
+fun HomeScreen(characters: List<fr.sample.hexagonalarchitecture.core_characters.domain.Character>) {
     LazyColumn {
         items(characters) { character ->
             Character(character)
@@ -36,7 +38,7 @@ fun HomeFragmentScreen(viewModel: HomeViewModel) {
 }
 
 @Composable
-private fun Character(character: String) {
+private fun Character(character: fr.sample.hexagonalarchitecture.core_characters.domain.Character) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -47,7 +49,7 @@ private fun Character(character: String) {
             modifier = Modifier.padding(15.dp)
         ) {
             Text(
-                text = "Hello $character!",
+                text = character.name.capitalize(LocaleList.current),
                 style = MaterialTheme.typography.body1,
             )
         }
@@ -59,7 +61,13 @@ private fun Character(character: String) {
 private fun HomeScreenPreview() {
     MyApplicationTheme {
         Surface {
-            HomeScreen(listOf("gaga", "pamela", "yes"))
+            HomeScreen(
+                listOf(
+                    fr.sample.hexagonalarchitecture.core_characters.domain.Character("gaga"),
+                    fr.sample.hexagonalarchitecture.core_characters.domain.Character("pamela"),
+                    fr.sample.hexagonalarchitecture.core_characters.domain.Character("yes"),
+                )
+            )
         }
     }
 }
@@ -69,7 +77,7 @@ private fun HomeScreenPreview() {
 private fun CharacterPreview() {
     MyApplicationTheme {
         Surface {
-            Character(character = "gaga")
+            Character(character = fr.sample.hexagonalarchitecture.core_characters.domain.Character("gaga"))
         }
     }
 }

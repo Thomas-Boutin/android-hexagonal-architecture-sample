@@ -37,9 +37,9 @@ class HomeViewModelTest {
     fun `should fetch new characters`() = runTest {
         coEvery { charactersInputAdapter.getCharacters() } returns Result.success(
             listOf(
-                "bob",
-                "pamela",
-                "gaga"
+                fr.sample.hexagonalarchitecture.core_characters.domain.Character("bob"),
+                fr.sample.hexagonalarchitecture.core_characters.domain.Character("pamela"),
+                fr.sample.hexagonalarchitecture.core_characters.domain.Character("gaga")
             )
         )
         viewModel.fetchCharacters()
@@ -47,9 +47,9 @@ class HomeViewModelTest {
         advanceUntilIdle()
 
         assertThat(viewModel.characters.value.getOrNull()).containsExactly(
-            "bob",
-            "pamela",
-            "gaga"
+            fr.sample.hexagonalarchitecture.core_characters.domain.Character("bob"),
+            fr.sample.hexagonalarchitecture.core_characters.domain.Character("pamela"),
+            fr.sample.hexagonalarchitecture.core_characters.domain.Character("gaga")
         )
     }
 
