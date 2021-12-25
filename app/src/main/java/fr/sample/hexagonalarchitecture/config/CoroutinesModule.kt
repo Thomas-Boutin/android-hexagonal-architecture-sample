@@ -12,24 +12,22 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-abstract class CoroutinesModule {
-    companion object {
-        @Provides
-        @Singleton
-        fun provideInputAdapterScope(): InputAdapterScope {
-            return InputAdapterScope(Dispatchers.IO)
-        }
+object CoroutinesModule {
+    @Provides
+    @Singleton
+    fun provideInputAdapterScope(): InputAdapterScope {
+        return InputAdapterScope(Dispatchers.IO)
+    }
 
-        @Provides
-        @Singleton
-        fun provideOutputAdapterScopeMain(): OutputAdapterScopeMain {
-            return OutputAdapterScopeMain(Dispatchers.Main)
-        }
+    @Provides
+    @Singleton
+    fun provideOutputAdapterScopeMain(): OutputAdapterScopeMain {
+        return OutputAdapterScopeMain(Dispatchers.Main)
+    }
 
-        @Provides
-        @Singleton
-        fun provideOutputAdapterScopeWorker(): OutputAdapterScopeWorker {
-            return OutputAdapterScopeWorker(Dispatchers.IO)
-        }
+    @Provides
+    @Singleton
+    fun provideOutputAdapterScopeWorker(): OutputAdapterScopeWorker {
+        return OutputAdapterScopeWorker(Dispatchers.IO)
     }
 }

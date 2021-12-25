@@ -2,9 +2,16 @@ package fr.sample.hexagonalarchitecture.core_characters.application.port
 
 import fr.sample.hexagonalarchitecture.core_characters.application.port.input.GetCharactersUseCase
 import fr.sample.hexagonalarchitecture.core_characters.domain.Character
+import javax.inject.Inject
 
-class CharactersService: GetCharactersUseCase {
-    override fun getCharacters(): Result<List<Character>> {
-        TODO("Not yet implemented")
+class CharactersService @Inject constructor() : GetCharactersUseCase {
+    override suspend fun getCharacters(): Result<List<Character>> {
+        return Result.success(
+            listOf(
+                Character("bob"),
+                Character("pamela"),
+                Character("gaga")
+            )
+        )
     }
 }
