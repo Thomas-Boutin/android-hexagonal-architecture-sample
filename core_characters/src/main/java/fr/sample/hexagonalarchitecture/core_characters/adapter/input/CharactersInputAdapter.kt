@@ -9,8 +9,7 @@ import javax.inject.Inject
 class CharactersInputAdapter @Inject constructor(
     override val adapterScope: InputAdapterScope,
     private val getCharactersUseCase: GetCharactersUseCase,
-) :
-    InputAdapter {
+) : InputAdapter {
 
     suspend fun getCharacters() = withContext(adapterScope.coroutineContext) {
         getCharactersUseCase.getCharacters()
