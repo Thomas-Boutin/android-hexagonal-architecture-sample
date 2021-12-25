@@ -1,7 +1,10 @@
 package fr.sample.hexagonalarchitecture.core_characters.adapter.input
 
 import fr.sample.hexagonalarchitecture.commons_io.InputAdapterScope
+import fr.sample.hexagonalarchitecture.core_characters.application.port.input.GetCharactersUseCase
 import fr.sample.hexagonalarchitecture.core_characters.domain.Character
+import io.mockk.coEvery
+import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
@@ -13,13 +16,15 @@ import org.junit.Before
 import org.junit.Test
 
 class CharactersInputAdapterTest {
+    private lateinit var getCharactersUseCase: GetCharactersUseCase
     private lateinit var charactersInputAdapter: CharactersInputAdapter
 
     @Before
     fun setUp() {
         val scheduler = StandardTestDispatcher()
         Dispatchers.setMain(scheduler)
-        charactersInputAdapter = CharactersInputAdapter(InputAdapterScope(scheduler))
+        getCharactersUseCase = mockk(relaxed = true)
+        charactersInputAdapter = CharactersInputAdapter(InputAdapterScope(scheduler), getCharactersUseCase)
     }
 
     @After
@@ -29,13 +34,13 @@ class CharactersInputAdapterTest {
 
     @Test
     fun `should fetch new characters`() = runTest {
-        /*coEvery { charactersInputAdapter.getCharacters() } returns Result.success(
+        coEvery { getCharactersUseCase.getCharacters() } returns Result.success(
             listOf(
                 Character("bob"),
                 Character("pamela"),
                 Character("gaga")
             )
-        )*/
+        )
         assertThat(charactersInputAdapter.getCharacters().getOrNull()).containsExactly(
             Character("bob"),
             Character("pamela"),
@@ -45,9 +50,9 @@ class CharactersInputAdapterTest {
 
     @Test
     fun `should propagate error`() = runTest {
-        /*coEvery { charactersInputAdapter.getCharacters() } returns Result.failure(
+        coEvery { getCharactersUseCase.getCharacters() } returns Result.failure(
             Exception("Unable to fetch characters")
-        )*/
+        )
 
         assertThat(charactersInputAdapter.getCharacters().exceptionOrNull())
             .isExactlyInstanceOf(Exception::class.java)
