@@ -18,12 +18,13 @@ import androidx.compose.ui.text.intl.LocaleList
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import fr.sample.hexagonalarchitecture.commons_android.theme.MyApplicationTheme
+import fr.sample.hexagonalarchitecture.core_characters.domain.Character
 
 @Composable
-fun HomeScreen(characters: List<fr.sample.hexagonalarchitecture.core_characters.domain.Character>) {
+fun HomeScreen(characters: List<Character>) {
     LazyColumn {
         items(characters) { character ->
-            Character(character)
+            CharacterItem(character)
         }
     }
 }
@@ -38,7 +39,7 @@ fun HomeFragmentScreen(viewModel: HomeViewModel) {
 }
 
 @Composable
-private fun Character(character: fr.sample.hexagonalarchitecture.core_characters.domain.Character) {
+private fun CharacterItem(character: Character) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -63,9 +64,9 @@ private fun HomeScreenPreview() {
         Surface {
             HomeScreen(
                 listOf(
-                    fr.sample.hexagonalarchitecture.core_characters.domain.Character("gaga"),
-                    fr.sample.hexagonalarchitecture.core_characters.domain.Character("pamela"),
-                    fr.sample.hexagonalarchitecture.core_characters.domain.Character("yes"),
+                    Character("gaga"),
+                    Character("pamela"),
+                    Character("yes"),
                 )
             )
         }
@@ -74,10 +75,10 @@ private fun HomeScreenPreview() {
 
 @Preview
 @Composable
-private fun CharacterPreview() {
+private fun CharacterItemPreview() {
     MyApplicationTheme {
         Surface {
-            Character(character = fr.sample.hexagonalarchitecture.core_characters.domain.Character("gaga"))
+            CharacterItem(character = Character("gaga"))
         }
     }
 }

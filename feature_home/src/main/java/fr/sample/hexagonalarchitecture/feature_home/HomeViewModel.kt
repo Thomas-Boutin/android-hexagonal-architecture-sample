@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fr.sample.hexagonalarchitecture.core_characters.adapter.input.CharactersInputAdapter
+import fr.sample.hexagonalarchitecture.core_characters.domain.Character
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -14,7 +15,7 @@ class HomeViewModel @Inject constructor(
 ) : ViewModel() {
     var characters = mutableStateOf(
         Result.success(
-            emptyList<fr.sample.hexagonalarchitecture.core_characters.domain.Character>()
+            emptyList<Character>()
         )
     )
         private set

@@ -1,6 +1,7 @@
 package fr.sample.hexagonalarchitecture.feature_home
 
 import fr.sample.hexagonalarchitecture.core_characters.adapter.input.CharactersInputAdapter
+import fr.sample.hexagonalarchitecture.core_characters.domain.Character
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
@@ -28,8 +29,6 @@ class HomeViewModelTest {
 
     @Test
     fun `should have no characters on init`() = runTest {
-        advanceUntilIdle()
-
         assertThat(viewModel.characters.value.getOrNull()).isEmpty()
     }
 
@@ -37,9 +36,9 @@ class HomeViewModelTest {
     fun `should fetch new characters`() = runTest {
         coEvery { charactersInputAdapter.getCharacters() } returns Result.success(
             listOf(
-                fr.sample.hexagonalarchitecture.core_characters.domain.Character("bob"),
-                fr.sample.hexagonalarchitecture.core_characters.domain.Character("pamela"),
-                fr.sample.hexagonalarchitecture.core_characters.domain.Character("gaga")
+                Character("bob"),
+                Character("pamela"),
+                Character("gaga")
             )
         )
         viewModel.fetchCharacters()
@@ -47,9 +46,9 @@ class HomeViewModelTest {
         advanceUntilIdle()
 
         assertThat(viewModel.characters.value.getOrNull()).containsExactly(
-            fr.sample.hexagonalarchitecture.core_characters.domain.Character("bob"),
-            fr.sample.hexagonalarchitecture.core_characters.domain.Character("pamela"),
-            fr.sample.hexagonalarchitecture.core_characters.domain.Character("gaga")
+            Character("bob"),
+            Character("pamela"),
+            Character("gaga")
         )
     }
 
