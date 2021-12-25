@@ -31,7 +31,7 @@ class GraphQLCharactersOutputAdapter @Inject constructor(
 }
 
 private fun <D: Operation.Data> ApolloResponse<D>.getDataOrThrow(): D {
-    if (hasErrors()) throw RuntimeException(errors.orEmpty().joinToString(separator = " ") {it.message})
+    if (hasErrors()) throw RuntimeException(errors.orEmpty().map { it.message }.toString())
     requireNotNull(data)
 
     return data as D

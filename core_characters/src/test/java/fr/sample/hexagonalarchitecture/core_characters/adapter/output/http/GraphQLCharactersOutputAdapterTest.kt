@@ -98,6 +98,6 @@ class GraphQLCharactersOutputAdapterTest {
         val result = wrapInResult { graphQLCharactersOutputAdapter.getCharacters() }
         assertThat(result.exceptionOrNull())
             .isInstanceOf(RuntimeException::class.java)
-            .hasMessage("500")
+            .hasMessage("[500]")
     }
 }

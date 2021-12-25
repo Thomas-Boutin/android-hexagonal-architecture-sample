@@ -5,6 +5,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import fr.sample.hexagonalarchitecture.BuildConfig
 import javax.inject.Singleton
 
 @Module
@@ -13,6 +14,9 @@ object HttpModule {
     @Provides
     @Singleton
     fun provideApolloClient(): ApolloClient {
-        return ApolloClient.Builder().build()
+        return ApolloClient
+            .Builder()
+            .serverUrl(BuildConfig.GRAPHQL_API_URL)
+            .build()
     }
 }

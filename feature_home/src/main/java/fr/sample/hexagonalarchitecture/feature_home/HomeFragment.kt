@@ -53,6 +53,6 @@ fun HomeFragmentScreen(viewModel: HomeViewModel) {
     viewModel.characters.value.onSuccess {
         HomeScreen(characters = it)
     }.onFailure {
-        Toast.makeText(LocalContext.current, it.message, Toast.LENGTH_SHORT).show()
+        Toast.makeText(LocalContext.current, it.message, Toast.LENGTH_LONG).show()
     }
 }

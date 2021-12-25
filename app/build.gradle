@@ -18,7 +18,12 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField("String", "GRAPHQL_API_URL", '"https://rickandmortyapi.com/graphql"')
+        }
+
         release {
+            buildConfigField("String", "GRAPHQL_API_URL", '"https://rickandmortyapi.com/graphql"')
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
