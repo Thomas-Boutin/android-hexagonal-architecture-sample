@@ -1,6 +1,5 @@
 package fr.sample.hexagonalarchitecture.feature_home
 
-import android.widget.Toast
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -12,7 +11,6 @@ import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.capitalize
 import androidx.compose.ui.text.intl.LocaleList
 import androidx.compose.ui.tooling.preview.Preview
@@ -23,18 +21,9 @@ import fr.sample.hexagonalarchitecture.core_characters.domain.Character
 @Composable
 fun HomeScreen(characters: List<Character>) {
     LazyColumn {
-        items(characters) { character ->
+        items(items = characters, key = { it.id }) { character ->
             CharacterItem(character)
         }
-    }
-}
-
-@Composable
-fun HomeFragmentScreen(viewModel: HomeViewModel) {
-    viewModel.characters.value.onSuccess {
-        HomeScreen(characters = it)
-    }.onFailure {
-        Toast.makeText(LocalContext.current, it.message, Toast.LENGTH_SHORT).show()
     }
 }
 
@@ -64,9 +53,9 @@ private fun HomeScreenPreview() {
         Surface {
             HomeScreen(
                 listOf(
-                    Character("gaga"),
-                    Character("pamela"),
-                    Character("yes"),
+                    Character(id = "id1", name = "bob"),
+                    Character(id = "id2", name = "pamela"),
+                    Character(id = "id3", name = "gaga")
                 )
             )
         }
@@ -78,7 +67,7 @@ private fun HomeScreenPreview() {
 private fun CharacterItemPreview() {
     MyApplicationTheme {
         Surface {
-            CharacterItem(character = Character("gaga"))
+            CharacterItem(character = Character(id = "id1",name = "gaga"))
         }
     }
 }

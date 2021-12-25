@@ -21,10 +21,10 @@ class CharactersInputAdapterTest {
 
     @Before
     fun setUp() {
-        val scheduler = StandardTestDispatcher()
-        Dispatchers.setMain(scheduler)
+        val dispatcher = StandardTestDispatcher()
+        Dispatchers.setMain(dispatcher)
         getCharactersUseCase = mockk(relaxed = true)
-        charactersInputAdapter = CharactersInputAdapter(InputAdapterScope(scheduler), getCharactersUseCase)
+        charactersInputAdapter = CharactersInputAdapter(InputAdapterScope(dispatcher), getCharactersUseCase)
     }
 
     @After
@@ -36,15 +36,15 @@ class CharactersInputAdapterTest {
     fun `should fetch new characters`() = runTest {
         coEvery { getCharactersUseCase.getCharacters() } returns Result.success(
             listOf(
-                Character("bob"),
-                Character("pamela"),
-                Character("gaga")
+                Character(id = "id1", name = "bob"),
+                Character(id = "id2", name = "pamela"),
+                Character(id = "id3", name = "gaga")
             )
         )
         assertThat(charactersInputAdapter.getCharacters().getOrNull()).containsExactly(
-            Character("bob"),
-            Character("pamela"),
-            Character("gaga")
+            Character(id = "id1", name = "bob"),
+            Character(id = "id2", name = "pamela"),
+            Character(id = "id3", name = "gaga")
         )
     }
 

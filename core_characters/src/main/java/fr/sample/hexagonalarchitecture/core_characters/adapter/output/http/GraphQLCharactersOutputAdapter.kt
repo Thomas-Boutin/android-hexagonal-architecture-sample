@@ -1,6 +1,8 @@
 package fr.sample.hexagonalarchitecture.core_characters.adapter.output.http
 
 import com.apollographql.apollo3.ApolloClient
+import com.apollographql.apollo3.api.ApolloResponse
+import com.apollographql.apollo3.api.Operation
 import fr.sample.hexagonalarchitecture.commons_io.OutputAdapter
 import fr.sample.hexagonalarchitecture.commons_io.OutputAdapterScopeMain
 import fr.sample.hexagonalarchitecture.commons_io.OutputAdapterScopeWorker
@@ -16,6 +18,25 @@ class GraphQLCharactersOutputAdapter @Inject constructor(
     private val getCharactersQueryFactory: GetCharactersQueryFactory
 ): OutputAdapter, GetCharactersPort {
     override suspend fun getCharacters() = withContext(adapterScopeWorker.coroutineContext) {
-        emptyList<Character>()
+        apolloClient
+            .query(getCharactersQueryFactory.create())
+            .execute()
+            .getDataOrThrow()
+            .characters
+            ?.results
+            ?.filterNotNull()
+            ?.map(GetCharactersQuery.Result::mapToCharacter)
+            ?: emptyList()
     }
+}
+
+private fun <D: Operation.Data> ApolloResponse<D>.getDataOrThrow(): D {
+    if (hasErrors()) throw RuntimeException(errors.orEmpty().joinToString(separator = " ") {it.message})
+    requireNotNull(data)
+
+    return data as D
+}
+
+private fun GetCharactersQuery.Result.mapToCharacter(): Character {
+    return Character(id = id.orEmpty(), name = name.orEmpty())
 }

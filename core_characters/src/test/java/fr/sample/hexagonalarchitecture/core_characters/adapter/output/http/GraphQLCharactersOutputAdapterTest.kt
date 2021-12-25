@@ -3,8 +3,10 @@ package fr.sample.hexagonalarchitecture.core_characters.adapter.output.http
 import com.apollographql.apollo3.ApolloCall
 import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.api.ApolloResponse
+import com.apollographql.apollo3.api.Error
 import fr.sample.hexagonalarchitecture.commons_io.OutputAdapterScopeMain
 import fr.sample.hexagonalarchitecture.commons_io.OutputAdapterScopeWorker
+import fr.sample.hexagonalarchitecture.commons_io.wrapInResult
 import fr.sample.hexagonalarchitecture.core_characters.domain.Character
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -25,13 +27,13 @@ class GraphQLCharactersOutputAdapterTest {
 
     @Before
     fun setUp() {
-        val scheduler = StandardTestDispatcher()
-        Dispatchers.setMain(scheduler)
+        val dispatcher = StandardTestDispatcher()
+        Dispatchers.setMain(dispatcher)
         apolloClient = mockk(relaxed = true)
         getCharactersQueryFactory = mockk(relaxed = true)
         graphQLCharactersOutputAdapter = GraphQLCharactersOutputAdapter(
-            OutputAdapterScopeMain(scheduler),
-            OutputAdapterScopeWorker(scheduler),
+            OutputAdapterScopeMain(dispatcher),
+            OutputAdapterScopeWorker(dispatcher),
             apolloClient,
             getCharactersQueryFactory
         )
@@ -48,7 +50,7 @@ class GraphQLCharactersOutputAdapterTest {
         val apolloCall = mockk<ApolloCall<GetCharactersQuery.Data>>(relaxed = true)
         coEvery { getCharactersQueryFactory.create() } returns getCharactersQuery
         coEvery { apolloClient.query(getCharactersQuery) } returns apolloCall
-        coEvery { apolloCall.execute() } returns ApolloResponse.Builder<GetCharactersQuery.Data>(
+        coEvery { apolloCall.execute() } returns ApolloResponse.Builder(
             mockk(),
             mockk(),
             GetCharactersQuery.Data(
@@ -69,14 +71,33 @@ class GraphQLCharactersOutputAdapterTest {
         )
     }
 
-    /*@Test
+    @Test
     fun `should propagate error`() = runTest {
-        coEvery { getCharactersUseCase.getCharacters() } returns Result.failure(
-            Exception("Unable to fetch characters")
-        )
+        val getCharactersQuery = GetCharactersQuery()
+        val apolloCall = mockk<ApolloCall<GetCharactersQuery.Data>>(relaxed = true)
+        coEvery { getCharactersQueryFactory.create() } returns getCharactersQuery
+        coEvery { apolloClient.query(getCharactersQuery) } returns apolloCall
+        coEvery { apolloCall.execute() } returns ApolloResponse.Builder(
+            mockk(),
+            mockk(),
+            GetCharactersQuery.Data(
+                characters = null,
+            )
+        ).errors(
+            listOf(
+                Error(
+                    message = "500",
+                    locations = null,
+                    extensions = null,
+                    path = null,
+                    nonStandardFields = null
+                )
+            )
+        ).build()
 
-        assertThat(charactersInputAdapter.getCharacters().exceptionOrNull())
-            .isExactlyInstanceOf(Exception::class.java)
-            .hasMessage("Unable to fetch characters")
-    }*/
+        val result = wrapInResult { graphQLCharactersOutputAdapter.getCharacters() }
+        assertThat(result.exceptionOrNull())
+            .isInstanceOf(RuntimeException::class.java)
+            .hasMessage("500")
+    }
 }

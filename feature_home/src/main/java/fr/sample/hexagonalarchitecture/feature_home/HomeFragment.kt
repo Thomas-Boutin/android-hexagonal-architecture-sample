@@ -4,8 +4,11 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.compose.material.Surface
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.ComposeView
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -42,5 +45,14 @@ class HomeFragment : Fragment() {
                 }
             }
         }
+    }
+}
+
+@Composable
+fun HomeFragmentScreen(viewModel: HomeViewModel) {
+    viewModel.characters.value.onSuccess {
+        HomeScreen(characters = it)
+    }.onFailure {
+        Toast.makeText(LocalContext.current, it.message, Toast.LENGTH_SHORT).show()
     }
 }

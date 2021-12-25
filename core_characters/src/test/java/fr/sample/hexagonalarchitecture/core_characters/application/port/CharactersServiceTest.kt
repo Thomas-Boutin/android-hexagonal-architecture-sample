@@ -33,14 +33,14 @@ class CharactersServiceTest {
     @Test
     fun `should fetch new characters`() = runTest {
         coEvery { getCharactersPort.getCharacters() } returns listOf(
-            Character("bob"),
-            Character("pamela"),
-            Character("gaga")
+            Character(id = "id1", name = "bob"),
+            Character(id = "id2", name = "pamela"),
+            Character(id = "id3", name = "gaga")
         )
         assertThat(charactersService.getCharacters().getOrNull()).containsExactly(
-            Character("bob"),
-            Character("pamela"),
-            Character("gaga")
+            Character(id = "id1", name = "bob"),
+            Character(id = "id2", name = "pamela"),
+            Character(id = "id3", name = "gaga")
         )
     }
 

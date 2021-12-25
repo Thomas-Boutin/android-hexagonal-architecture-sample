@@ -36,9 +36,9 @@ class HomeViewModelTest {
     fun `should fetch new characters`() = runTest {
         coEvery { charactersInputAdapter.getCharacters() } returns Result.success(
             listOf(
-                Character("bob"),
-                Character("pamela"),
-                Character("gaga")
+                Character(id = "id1", name = "bob"),
+                Character(id = "id2", name = "pamela"),
+                Character(id = "id3", name = "gaga")
             )
         )
         viewModel.fetchCharacters()
@@ -46,9 +46,9 @@ class HomeViewModelTest {
         advanceUntilIdle()
 
         assertThat(viewModel.characters.value.getOrNull()).containsExactly(
-            Character("bob"),
-            Character("pamela"),
-            Character("gaga")
+            Character(id = "id1", name = "bob"),
+            Character(id = "id2", name = "pamela"),
+            Character(id = "id3", name = "gaga")
         )
     }
 
