@@ -22,7 +22,7 @@ class CharactersServiceTest {
     fun setUp() {
         Dispatchers.setMain(StandardTestDispatcher())
         getCharactersPort = mockk(relaxed = true)
-        charactersService = CharactersService()
+        charactersService = CharactersService(getCharactersPort)
     }
 
     @After
@@ -32,12 +32,10 @@ class CharactersServiceTest {
 
     @Test
     fun `should fetch new characters`() = runTest {
-        coEvery { getCharactersPort.getCharacters() } returns Result.success(
-            listOf(
-                Character("bob"),
-                Character("pamela"),
-                Character("gaga")
-            )
+        coEvery { getCharactersPort.getCharacters() } returns listOf(
+            Character("bob"),
+            Character("pamela"),
+            Character("gaga")
         )
         assertThat(charactersService.getCharacters().getOrNull()).containsExactly(
             Character("bob"),
@@ -48,9 +46,7 @@ class CharactersServiceTest {
 
     @Test
     fun `should propagate error`() = runTest {
-        coEvery { getCharactersPort.getCharacters() } returns Result.failure(
-            Exception("Unable to fetch characters")
-        )
+        coEvery { getCharactersPort.getCharacters() } throws Exception("Unable to fetch characters")
 
         assertThat(charactersService.getCharacters().exceptionOrNull())
             .isExactlyInstanceOf(Exception::class.java)
