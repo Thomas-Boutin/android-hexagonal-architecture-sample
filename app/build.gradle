@@ -47,6 +47,7 @@ dependencies {
 
     implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
+    implementation "com.apollographql.apollo3:apollo-runtime:$rootProject.apolloVersion"
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutinesVersion"
 

@@ -1,5 +1,6 @@
 package fr.sample.hexagonalarchitecture.core_characters.adapter.output.http
 
+import com.apollographql.apollo3.ApolloClient
 import fr.sample.hexagonalarchitecture.commons_io.OutputAdapter
 import fr.sample.hexagonalarchitecture.commons_io.OutputAdapterScopeMain
 import fr.sample.hexagonalarchitecture.commons_io.OutputAdapterScopeWorker
@@ -9,9 +10,11 @@ import javax.inject.Inject
 
 class GraphQLCharactersOutputAdapter @Inject constructor(
     override val adapterScopeMain: OutputAdapterScopeMain,
-    override val adapterScopeWorker: OutputAdapterScopeWorker
+    override val adapterScopeWorker: OutputAdapterScopeWorker,
+    private val apolloClient: ApolloClient,
+    private val getCharactersQueryFactory: GetCharactersQueryFactory
 ): OutputAdapter, GetCharactersPort {
     override suspend fun getCharacters() = withContext(adapterScopeWorker.coroutineContext) {
-        TODO() //GetCharactersQuery().
+        TODO()
     }
 }
