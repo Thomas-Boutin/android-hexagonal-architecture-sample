@@ -32,13 +32,8 @@ android {
         useIR = true
     }
 
-    composeOptions {
-        kotlinCompilerExtensionVersion rootProject.composeCompilerVersion
-    }
-
     buildFeatures {
         viewBinding true
-        compose true
     }
 }
 

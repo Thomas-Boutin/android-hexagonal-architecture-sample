@@ -50,6 +50,7 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$rootProject.testExtJunitVersion"
 
     implementation project(':commons_android')
+    implementation project(':commons_io')
     implementation project(':core_characters')
 
     implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"

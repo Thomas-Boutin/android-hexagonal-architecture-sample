@@ -1,5 +1,8 @@
 package fr.sample.hexagonalarchitecture.feature_home
 
+import fr.sample.hexagonalarchitecture.core_characters.adapter.input.CharactersInputAdapter
+import io.mockk.coEvery
+import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.test.*
 import org.assertj.core.api.Assertions.assertThat
@@ -8,13 +11,14 @@ import org.junit.Before
 import org.junit.Test
 
 class HomeViewModelTest {
-
-    lateinit var viewModel: HomeViewModel
+    private lateinit var charactersInputAdapter: CharactersInputAdapter
+    private lateinit var viewModel: HomeViewModel
 
     @Before
     fun setUp() {
         Dispatchers.setMain(StandardTestDispatcher())
-        viewModel = HomeViewModel()
+        charactersInputAdapter = mockk(relaxed = true)
+        viewModel = HomeViewModel(charactersInputAdapter)
     }
 
     @After
@@ -31,6 +35,13 @@ class HomeViewModelTest {
 
     @Test
     fun `should fetch new characters`() = runTest {
+        coEvery { charactersInputAdapter.getCharacters() } returns Result.success(
+            listOf(
+                "bob",
+                "pamela",
+                "gaga"
+            )
+        )
         viewModel.fetchCharacters()
 
         advanceUntilIdle()
@@ -44,10 +55,16 @@ class HomeViewModelTest {
 
     @Test
     fun `should propagate error`() = runTest {
+        coEvery { charactersInputAdapter.getCharacters() } returns Result.failure(
+            Exception("Unable to fetch characters")
+        )
         viewModel.fetchCharacters()
 
         advanceUntilIdle()
 
-        assertThat(viewModel.characters.value.isFailure).isTrue()
+        assertThat(viewModel.characters.value.isFailure).isTrue
+        assertThat(viewModel.characters.value.exceptionOrNull())
+            .isExactlyInstanceOf(Exception::class.java)
+            .hasMessage("Unable to fetch characters")
     }
 }

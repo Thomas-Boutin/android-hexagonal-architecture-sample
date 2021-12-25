@@ -1,25 +1,21 @@
 package fr.sample.hexagonalarchitecture.feature_home
 
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
+import fr.sample.hexagonalarchitecture.core_characters.adapter.input.CharactersInputAdapter
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor() : ViewModel() {
-    var characters = mutableStateOf<Result<List<String>>>(Result.success(emptyList()))
+class HomeViewModel @Inject constructor(
+    private val charactersInputAdapter: CharactersInputAdapter,
+) : ViewModel() {
+    var characters = mutableStateOf(Result.success(emptyList<String>()))
         private set
 
     fun fetchCharacters() = viewModelScope.launch {
-        characters.value = Result.success(
-            listOf(
-                "bob",
-                "pamela",
-                "gaga"
-            )
-        )
+        characters.value = charactersInputAdapter.getCharacters()
     }
 }
