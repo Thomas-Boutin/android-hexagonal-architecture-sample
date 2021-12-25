@@ -43,9 +43,12 @@ dependencies {
     androidTestImplementation "androidx.test.ext:junit:$rootProject.testExtJunitVersion"
 
     implementation project(':feature_home')
+    implementation project(':commons_io')
+
     implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "com.google.dagger:hilt-android:$hiltVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutinesVersion"
 
     kapt "com.google.dagger:hilt-compiler:$rootProject.hiltVersion"
 

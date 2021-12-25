@@ -16,7 +16,7 @@ buildscript {
         coroutinesVersion = '1.6.0'
         espressoVersion = '3.4.0'
         fragmentVersion = '1.4.0'
-        hiltVersion = '2.38.1'
+        hiltVersion = '2.40.5'
         junitVersion = '4.13.2'
         kotlinGradlePluginVersion = '1.6.10'
         lifecycleVersion = '2.4.0'

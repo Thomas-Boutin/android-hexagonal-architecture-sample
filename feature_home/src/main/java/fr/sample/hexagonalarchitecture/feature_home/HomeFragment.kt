@@ -4,17 +4,9 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.platform.ComposeView
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.ViewCompositionStrategy
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
@@ -36,6 +28,11 @@ class HomeFragment : Fragment() {
             .root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        viewModel.fetchCharacters()
+    }
+
     private fun ComposeView.init() {
         setViewCompositionStrategy(ViewCompositionStrategy.DisposeOnViewTreeLifecycleDestroyed)
         setContent {
@@ -46,40 +43,4 @@ class HomeFragment : Fragment() {
             }
         }
     }
-}
-
-@Composable
-fun HomeFragmentScreen(viewModel: HomeViewModel) {
-    viewModel.characters.value.onSuccess {
-        HomeScreen(characters = it)
-    }.onFailure {
-        Toast.makeText(LocalContext.current, it.message, Toast.LENGTH_SHORT).show()
-    }
-}
-
-@Preview
-@Composable
-fun DefaultPreview() {
-    MyApplicationTheme {
-        Surface {
-            HomeScreen(listOf("gaga", "pamela", "yes"))
-        }
-    }
-}
-
-@Composable
-fun HomeScreen(characters: List<String>) {
-    LazyColumn {
-        items(characters) { character ->
-            Character(character)
-        }
-    }
-}
-
-@Composable
-private fun Character(character: String) {
-    Text(
-        text = "Hello $character!",
-        style = MaterialTheme.typography.body1,
-    )
 }

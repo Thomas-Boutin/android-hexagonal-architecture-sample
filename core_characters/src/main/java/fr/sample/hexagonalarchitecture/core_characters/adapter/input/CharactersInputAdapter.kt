@@ -8,6 +8,6 @@ import javax.inject.Inject
 class CharactersInputAdapter @Inject constructor(override val adapterScope: InputAdapterScope) : InputAdapter {
 
     suspend fun getCharacters() = withContext(adapterScope.coroutineContext) {
-        Result.success(emptyList<String>())
+        Result.success(listOf("lala", "lolo"))
     }
 }
