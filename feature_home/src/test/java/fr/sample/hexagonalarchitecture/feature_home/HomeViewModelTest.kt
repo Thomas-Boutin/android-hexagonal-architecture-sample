@@ -46,7 +46,7 @@ class HomeViewModelTest {
 
         advanceUntilIdle()
 
-        assertThat(viewModel.characters.value.getOrNull()).containsExactly(
+        assertThat(viewModel.characters.value.dataOrNull()).containsExactly(
             Character(id = "id1", name = "bob"),
             Character(id = "id2", name = "pamela"),
             Character(id = "id3", name = "gaga")
@@ -62,7 +62,7 @@ class HomeViewModelTest {
 
         advanceUntilIdle()
 
-        assertThat(viewModel.characters.value.isFailure).isTrue
+        assertThat(viewModel.characters.value).isExactlyInstanceOf(Resource.Error::class.java)
         assertThat(viewModel.characters.value.exceptionOrNull())
             .isExactlyInstanceOf(Exception::class.java)
             .hasMessage("Unable to fetch characters")
