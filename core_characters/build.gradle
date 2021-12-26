@@ -4,6 +4,7 @@ plugins {
     id 'dagger.hilt.android.plugin'
     id 'kotlin-android'
     id 'kotlin-kapt'
+    id 'org.jetbrains.kotlin.plugin.serialization'
 }
 
 android {
@@ -65,7 +66,10 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$rootProject.navigationVersion"
     implementation "com.apollographql.apollo3:apollo-runtime:$rootProject.apolloVersion"
     implementation "com.google.dagger:hilt-android:$rootProject.hiltVersion"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:$rootProject.retrofitKotlinxSerializationConverterVersion"
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$rootProject.kotlinxSerializationVersion"
 
     kapt "com.google.dagger:hilt-compiler:$rootProject.hiltVersion"
 

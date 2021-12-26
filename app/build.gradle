@@ -19,11 +19,13 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField("String", "GRAPHQL_API_URL", '"https://rickandmortyapi.com/graphql"')
+            buildConfigField("String", "API_URL_GRAPHQL", '"https://rickandmortyapi.com/graphql"')
+            buildConfigField("String", "API_URL_REST", '"https://rickandmortyapi.com/api"')
         }
 
         release {
-            buildConfigField("String", "GRAPHQL_API_URL", '"https://rickandmortyapi.com/graphql"')
+            buildConfigField("String", "API_URL_GRAPHQL", '"https://rickandmortyapi.com/graphql"')
+            buildConfigField("String", "API_URL_REST", '"https://rickandmortyapi.com/api"')
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -54,7 +56,10 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$navigationVersion"
     implementation "com.apollographql.apollo3:apollo-runtime:$rootProject.apolloVersion"
     implementation "com.google.dagger:hilt-android:$hiltVersion"
+    implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:$rootProject.retrofitKotlinxSerializationConverterVersion"
+    implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutinesVersion"
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$rootProject.kotlinxSerializationVersion"
 
     kapt "com.google.dagger:hilt-compiler:$rootProject.hiltVersion"
 
