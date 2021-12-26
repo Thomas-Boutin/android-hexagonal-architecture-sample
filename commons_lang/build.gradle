@@ -40,6 +40,7 @@ android {
 dependencies {
     androidTestImplementation "androidx.test.ext:junit:$rootProject.testExtJunitVersion"
 
+    implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutinesVersion"
 
     testImplementation "io.mockk:mockk:$rootProject.mockkVersion"

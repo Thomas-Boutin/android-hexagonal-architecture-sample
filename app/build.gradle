@@ -57,6 +57,7 @@ dependencies {
     implementation "com.apollographql.apollo3:apollo-runtime:$rootProject.apolloVersion"
     implementation "com.google.dagger:hilt-android:$hiltVersion"
     implementation "com.jakewharton.retrofit:retrofit2-kotlinx-serialization-converter:$rootProject.retrofitKotlinxSerializationConverterVersion"
+    implementation "com.jakewharton.timber:timber:$rootProject.timberVersion"
     implementation "com.squareup.retrofit2:retrofit:$rootProject.retrofitVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutinesVersion"
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$rootProject.kotlinxSerializationVersion"

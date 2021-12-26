@@ -7,15 +7,15 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class RESTCharacter(
     @SerialName("id")
-    val id: String,
+    val id: Int,
     @SerialName("name")
     val name: String,
-    @SerialName("isAlive")
+    @SerialName("status")
     val status: String,
 ) {
     fun toCharacterDetail(): CharacterDetail {
         return CharacterDetail(
-            id = id,
+            id = id.toString(),
             name = name,
             status = status,
         )

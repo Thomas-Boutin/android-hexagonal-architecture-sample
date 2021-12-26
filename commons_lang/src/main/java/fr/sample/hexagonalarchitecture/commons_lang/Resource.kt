@@ -1,5 +1,7 @@
 package fr.sample.hexagonalarchitecture.commons_lang
 
+import timber.log.Timber
+
 sealed class Resource<T> {
     data class Success<T>(val data: T) : Resource<T>()
 
@@ -37,6 +39,7 @@ suspend fun <T> wrapInResource(block: suspend () -> T): Resource<T> {
     return try {
         Resource.Success(block())
     } catch (e: Exception) {
+        Timber.e(e)
         Resource.Error(e)
     }
 }
