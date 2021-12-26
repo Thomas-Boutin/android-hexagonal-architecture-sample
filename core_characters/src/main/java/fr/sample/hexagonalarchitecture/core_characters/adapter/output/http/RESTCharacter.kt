@@ -11,13 +11,13 @@ data class RESTCharacter(
     @SerialName("name")
     val name: String,
     @SerialName("isAlive")
-    val isAlive: Boolean,
+    val status: String,
 ) {
     fun toCharacterDetail(): CharacterDetail {
         return CharacterDetail(
             id = id,
             name = name,
-            isAlive = isAlive,
+            status = status,
         )
     }
 }

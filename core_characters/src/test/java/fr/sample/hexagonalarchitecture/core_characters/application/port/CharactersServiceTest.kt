@@ -62,13 +62,13 @@ class CharactersServiceTest {
         coEvery { getCharacterDetailPort.getCharacterDetailWith(any()) } returns CharacterDetail(
             id = "id",
             name = "bob",
-            isAlive = true
+            status = "dead",
         )
         assertThat(charactersService.getCharacterDetailWith("id").dataOrNull()).isEqualTo(
             CharacterDetail(
                 id = "id",
                 name = "bob",
-                isAlive = true
+                status = "dead",
             )
         )
     }

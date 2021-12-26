@@ -42,11 +42,11 @@ class RESTCharactersOutputAdapterTest {
         coEvery { restCharactersApi.getCharacterWith(any()) } returns RESTCharacter(
             id = "id1",
             name = "bob",
-            isAlive = true,
+            status = "dead",
         )
 
         assertThat(restCharactersOutputAdapter.getCharacterDetailWith("id1")).isEqualTo(
-            CharacterDetail(id = "id1", name = "bob", isAlive = true)
+            CharacterDetail(id = "id1", name = "bob", status = "dead")
         )
     }
 

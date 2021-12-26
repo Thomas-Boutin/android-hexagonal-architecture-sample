@@ -71,10 +71,10 @@ class CharactersInputAdapterTest {
     @Test
     fun `should fetch character's detail`() = runTest {
         coEvery { getCharacterDetailUseCase.getCharacterDetailWith(any()) } returns Resource.Success(
-            CharacterDetail(id = "id1", name = "bob", isAlive = true)
+            CharacterDetail(id = "id1", name = "bob", status = "dead")
         )
         assertThat(charactersInputAdapter.getCharacterDetailWith("id").dataOrNull()).isEqualTo(
-            CharacterDetail(id = "id1", name = "bob", isAlive = true)
+            CharacterDetail(id = "id1", name = "bob", status = "dead")
         )
     }
 

@@ -45,7 +45,7 @@ class CharacterDetailFragment : Fragment() {
 @Composable
 fun CharacterDetailFragmentScreen(viewModel: CharacterDetailViewModel) {
     viewModel.characterDetail.value.onSuccess {
-        //CharacterDetailScreen(characters = it)
+        CharacterDetailScreen(characterDetail = it)
     }.onError {
         Toast.makeText(LocalContext.current, it.message, Toast.LENGTH_LONG).show()
     }
