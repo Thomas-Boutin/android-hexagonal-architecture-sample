@@ -7,5 +7,16 @@
     <fragment
         android:id="@+id/homeFragment"
         android:name="fr.sample.hexagonalarchitecture.feature_home.HomeFragment"
-        android:label="HomeFragment" />
+        android:label="HomeFragment" >
+        <action
+            android:id="@+id/action_homeFragment_to_nav_graph_character_detail"
+            app:destination="@id/nav_graph_character_detail">
+            <argument
+                android:name="characterId"
+                app:argType="string"
+                app:nullable="false" />
+        </action>
+    </fragment>
+
+    <include app:graph="@navigation/nav_graph_character_detail" />
 </navigation>

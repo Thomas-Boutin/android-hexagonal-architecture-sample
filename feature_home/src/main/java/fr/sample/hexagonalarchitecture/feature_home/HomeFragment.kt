@@ -12,6 +12,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import fr.sample.hexagonalarchitecture.commons_android.theme.MyApplicationTheme
 import fr.sample.hexagonalarchitecture.commons_lang.onError
@@ -43,17 +44,23 @@ class HomeFragment : Fragment() {
         setContent {
             MyApplicationTheme {
                 Surface {
-                    HomeFragmentScreen(viewModel)
+                    HomeFragmentScreen(viewModel, ::goToCharacterDetail)
                 }
             }
         }
     }
+
+    private fun goToCharacterDetail(characterId: String) {
+        HomeFragmentDirections
+            .actionHomeFragmentToNavGraphCharacterDetail(characterId)
+            .let { findNavController().navigate(it) }
+    }
 }
 
 @Composable
-fun HomeFragmentScreen(viewModel: HomeViewModel) {
+fun HomeFragmentScreen(viewModel: HomeViewModel, onCharacterClicked: (String) -> Unit) {
     viewModel.characters.value.onSuccess {
-        HomeScreen(characters = it)
+        HomeScreen(characters = it, onCharacterClicked = onCharacterClicked)
     }.onError {
         Toast.makeText(LocalContext.current, it.message, Toast.LENGTH_LONG).show()
     }

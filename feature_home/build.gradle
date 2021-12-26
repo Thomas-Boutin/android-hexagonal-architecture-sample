@@ -54,6 +54,7 @@ dependencies {
     implementation project(':commons_io')
     implementation project(':commons_lang')
     implementation project(':core_characters')
+    implementation project(':feature_character_detail')
 
     implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
     implementation "androidx.compose.ui:ui:$rootProject.composeVersion"

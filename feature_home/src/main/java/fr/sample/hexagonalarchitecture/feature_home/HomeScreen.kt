@@ -1,5 +1,6 @@
 package fr.sample.hexagonalarchitecture.feature_home
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -19,20 +20,21 @@ import fr.sample.hexagonalarchitecture.commons_android.theme.MyApplicationTheme
 import fr.sample.hexagonalarchitecture.core_characters.domain.Character
 
 @Composable
-fun HomeScreen(characters: List<Character>) {
+fun HomeScreen(characters: List<Character>, onCharacterClicked: (String) -> Unit) {
     LazyColumn {
         items(items = characters, key = { it.id }) { character ->
-            CharacterItem(character)
+            CharacterItem(character, onCharacterClicked)
         }
     }
 }
 
 @Composable
-private fun CharacterItem(character: Character) {
+private fun CharacterItem(character: Character, onCharacterClicked: (String) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(15.dp),
+            .padding(15.dp)
+            .clickable { onCharacterClicked(character.id) },
         elevation = 10.dp
     ) {
         Column(
@@ -57,7 +59,7 @@ private fun HomeScreenPreview() {
                     Character(id = "id2", name = "pamela"),
                     Character(id = "id3", name = "gaga")
                 )
-            )
+            ) {}
         }
     }
 }
@@ -67,7 +69,9 @@ private fun HomeScreenPreview() {
 private fun CharacterItemPreview() {
     MyApplicationTheme {
         Surface {
-            CharacterItem(character = Character(id = "id1",name = "gaga"))
+            CharacterItem(
+                character = Character(id = "id1", name = "gaga")
+            ) { }
         }
     }
 }
