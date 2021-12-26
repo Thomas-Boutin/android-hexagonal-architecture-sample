@@ -6,7 +6,7 @@ import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import fr.sample.hexagonalarchitecture.commons_lang.Resource
 import fr.sample.hexagonalarchitecture.core_characters.adapter.input.CharactersInputAdapter
-import fr.sample.hexagonalarchitecture.core_characters.domain.Character
+import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterDetail
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -14,12 +14,12 @@ import javax.inject.Inject
 class CharacterDetailViewModel @Inject constructor(
     private val charactersInputAdapter: CharactersInputAdapter,
 ) : ViewModel() {
-    var character = mutableStateOf<Resource<Character>>(
+    var characterDetail = mutableStateOf<Resource<CharacterDetail>>(
         Resource.Idle()
     )
         private set
 
-    fun fetchCharacters() = viewModelScope.launch {
+    fun fetchCharacterDetail(characterId: String) = viewModelScope.launch {
         //characters.value = charactersInputAdapter.getCharacters()
     }
 }

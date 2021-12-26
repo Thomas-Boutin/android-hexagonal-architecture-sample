@@ -12,6 +12,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.ViewCompositionStrategy
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.navigation.fragment.navArgs
 import dagger.hilt.android.AndroidEntryPoint
 import fr.sample.hexagonalarchitecture.commons_android.theme.MyApplicationTheme
 import fr.sample.hexagonalarchitecture.commons_lang.onError
@@ -20,6 +21,7 @@ import fr.sample.hexagonalarchitecture.feature_character_detail.databinding.Frag
 
 @AndroidEntryPoint
 class CharacterDetailFragment : Fragment() {
+    private val characterDetailFragmentArgs: CharacterDetailFragmentArgs by navArgs()
     private val viewModel: CharacterDetailViewModel by viewModels()
 
     override fun onCreateView(
@@ -35,7 +37,7 @@ class CharacterDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.fetchCharacters()
+        viewModel.fetchCharacterDetail(characterDetailFragmentArgs.characterId)
     }
 
     private fun ComposeView.init() {
@@ -52,7 +54,7 @@ class CharacterDetailFragment : Fragment() {
 
 @Composable
 fun CharacterDetailFragmentScreen(viewModel: CharacterDetailViewModel) {
-    viewModel.character.value.onSuccess {
+    viewModel.characterDetail.value.onSuccess {
         //CharacterDetailScreen(characters = it)
     }.onError {
         Toast.makeText(LocalContext.current, it.message, Toast.LENGTH_LONG).show()
