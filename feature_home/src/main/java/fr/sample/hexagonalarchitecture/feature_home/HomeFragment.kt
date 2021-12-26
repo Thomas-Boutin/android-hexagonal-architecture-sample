@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import fr.sample.hexagonalarchitecture.commons_android.theme.MyApplicationTheme
+import fr.sample.hexagonalarchitecture.commons_lang.onError
+import fr.sample.hexagonalarchitecture.commons_lang.onSuccess
 import fr.sample.hexagonalarchitecture.feature_home.databinding.FragmentHomeBinding
 
 @AndroidEntryPoint
@@ -52,7 +54,7 @@ class HomeFragment : Fragment() {
 fun HomeFragmentScreen(viewModel: HomeViewModel) {
     viewModel.characters.value.onSuccess {
         HomeScreen(characters = it)
-    }.onFailure {
+    }.onError {
         Toast.makeText(LocalContext.current, it.message, Toast.LENGTH_LONG).show()
     }
 }

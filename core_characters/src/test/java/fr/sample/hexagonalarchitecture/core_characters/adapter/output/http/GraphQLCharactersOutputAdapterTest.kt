@@ -6,7 +6,7 @@ import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.api.Error
 import fr.sample.hexagonalarchitecture.commons_io.OutputAdapterScopeMain
 import fr.sample.hexagonalarchitecture.commons_io.OutputAdapterScopeWorker
-import fr.sample.hexagonalarchitecture.commons_lang.wrapInResult
+import fr.sample.hexagonalarchitecture.commons_lang.wrapInResource
 import fr.sample.hexagonalarchitecture.core_characters.domain.Character
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -95,7 +95,7 @@ class GraphQLCharactersOutputAdapterTest {
             )
         ).build()
 
-        val result = wrapInResult { graphQLCharactersOutputAdapter.getCharacters() }
+        val result = wrapInResource { graphQLCharactersOutputAdapter.getCharacters() }
         assertThat(result.exceptionOrNull())
             .isInstanceOf(RuntimeException::class.java)
             .hasMessage("[500]")

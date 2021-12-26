@@ -1,6 +1,7 @@
 package fr.sample.hexagonalarchitecture.core_characters.adapter.input
 
 import fr.sample.hexagonalarchitecture.commons_io.InputAdapterScope
+import fr.sample.hexagonalarchitecture.commons_lang.Resource
 import fr.sample.hexagonalarchitecture.core_characters.application.port.input.GetCharactersUseCase
 import fr.sample.hexagonalarchitecture.core_characters.domain.Character
 import io.mockk.coEvery
@@ -34,14 +35,14 @@ class CharactersInputAdapterTest {
 
     @Test
     fun `should fetch new characters`() = runTest {
-        coEvery { getCharactersUseCase.getCharacters() } returns Result.success(
+        coEvery { getCharactersUseCase.getCharacters() } returns Resource.Success(
             listOf(
                 Character(id = "id1", name = "bob"),
                 Character(id = "id2", name = "pamela"),
                 Character(id = "id3", name = "gaga")
             )
         )
-        assertThat(charactersInputAdapter.getCharacters().getOrNull()).containsExactly(
+        assertThat(charactersInputAdapter.getCharacters().dataOrNull()).containsExactly(
             Character(id = "id1", name = "bob"),
             Character(id = "id2", name = "pamela"),
             Character(id = "id3", name = "gaga")
@@ -50,7 +51,7 @@ class CharactersInputAdapterTest {
 
     @Test
     fun `should propagate error`() = runTest {
-        coEvery { getCharactersUseCase.getCharacters() } returns Result.failure(
+        coEvery { getCharactersUseCase.getCharacters() } returns Resource.Error(
             Exception("Unable to fetch characters")
         )
 

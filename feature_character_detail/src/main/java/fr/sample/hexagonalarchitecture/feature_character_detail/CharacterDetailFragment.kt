@@ -14,6 +14,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import dagger.hilt.android.AndroidEntryPoint
 import fr.sample.hexagonalarchitecture.commons_android.theme.MyApplicationTheme
+import fr.sample.hexagonalarchitecture.commons_lang.onError
+import fr.sample.hexagonalarchitecture.commons_lang.onSuccess
 import fr.sample.hexagonalarchitecture.feature_character_detail.databinding.FragmentCharacterDetailBinding
 
 @AndroidEntryPoint
@@ -52,7 +54,7 @@ class CharacterDetailFragment : Fragment() {
 fun CharacterDetailFragmentScreen(viewModel: CharacterDetailViewModel) {
     viewModel.character.value.onSuccess {
         //CharacterDetailScreen(characters = it)
-    }.onFailure {
+    }.onError {
         Toast.makeText(LocalContext.current, it.message, Toast.LENGTH_LONG).show()
     }
 }

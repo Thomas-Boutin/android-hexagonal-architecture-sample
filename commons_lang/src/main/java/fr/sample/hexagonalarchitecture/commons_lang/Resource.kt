@@ -10,27 +10,27 @@ sealed class Resource<T> {
     fun exceptionOrNull() = (this as? Error)?.throwable
 
     fun dataOrNull() = (this as? Success)?.data
+}
 
-    fun onSuccess(action: (T) -> Unit): Resource<T> = when (this) {
-        is Success -> apply { action(data) }
-        is Error -> this
-        is Loading -> this
-        is Idle -> this
-    }
+inline fun <reified T> Resource<T>.onSuccess(action: (T) -> Unit): Resource<T> = when (this) {
+    is Resource.Success -> apply { action(data) }
+    is Resource.Error -> this
+    is Resource.Loading -> this
+    is Resource.Idle -> this
+}
 
-    fun onError(action: (Throwable) -> Unit): Resource<T> = when (this) {
-        is Success -> this
-        is Error -> apply { action(throwable) }
-        is Loading -> this
-        is Idle -> this
-    }
+inline fun <reified T> Resource<T>.onError(action: (Throwable) -> Unit): Resource<T> = when (this) {
+    is Resource.Success -> this
+    is Resource.Error -> apply { action(throwable) }
+    is Resource.Loading -> this
+    is Resource.Idle -> this
+}
 
-    fun onLoading(action: () -> Unit): Resource<T> = when (this) {
-        is Success -> this
-        is Error -> this
-        is Loading -> apply { action() }
-        is Idle -> this
-    }
+inline fun <reified T> Resource<T>.onLoading(action: () -> Unit): Resource<T> = when (this) {
+    is Resource.Success -> this
+    is Resource.Error -> this
+    is Resource.Loading -> apply { action() }
+    is Resource.Idle -> this
 }
 
 suspend fun <T> wrapInResource(block: suspend () -> T): Resource<T> {

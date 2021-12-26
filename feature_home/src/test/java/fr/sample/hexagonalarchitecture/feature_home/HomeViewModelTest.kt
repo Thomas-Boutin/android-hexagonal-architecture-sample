@@ -1,5 +1,6 @@
 package fr.sample.hexagonalarchitecture.feature_home
 
+import fr.sample.hexagonalarchitecture.commons_lang.Resource
 import fr.sample.hexagonalarchitecture.core_characters.adapter.input.CharactersInputAdapter
 import fr.sample.hexagonalarchitecture.core_characters.domain.Character
 import io.mockk.coEvery
@@ -29,12 +30,12 @@ class HomeViewModelTest {
 
     @Test
     fun `should have no characters on init`() = runTest {
-        assertThat(viewModel.characters.value.getOrNull()).isEmpty()
+        assertThat(viewModel.characters.value).isExactlyInstanceOf(Resource.Idle::class.java)
     }
 
     @Test
     fun `should fetch new characters`() = runTest {
-        coEvery { charactersInputAdapter.getCharacters() } returns Result.success(
+        coEvery { charactersInputAdapter.getCharacters() } returns Resource.Success(
             listOf(
                 Character(id = "id1", name = "bob"),
                 Character(id = "id2", name = "pamela"),
@@ -54,7 +55,7 @@ class HomeViewModelTest {
 
     @Test
     fun `should propagate error`() = runTest {
-        coEvery { charactersInputAdapter.getCharacters() } returns Result.failure(
+        coEvery { charactersInputAdapter.getCharacters() } returns Resource.Error(
             Exception("Unable to fetch characters")
         )
         viewModel.fetchCharacters()
