@@ -1,6 +1,6 @@
 package fr.sample.hexagonalarchitecture.core_characters.application.port
 
-import fr.sample.hexagonalarchitecture.commons_io.wrapInResult
+import fr.sample.hexagonalarchitecture.commons_lang.wrapInResult
 import fr.sample.hexagonalarchitecture.core_characters.application.port.input.GetCharactersUseCase
 import fr.sample.hexagonalarchitecture.core_characters.application.port.output.GetCharactersPort
 import fr.sample.hexagonalarchitecture.core_characters.domain.Character

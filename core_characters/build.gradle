@@ -51,6 +51,7 @@ dependencies {
 
     implementation project(':commons_android')
     implementation project(':commons_io')
+    implementation project(':commons_lang')
 
     implementation "androidx.appcompat:appcompat:$rootProject.appCompatVersion"
     implementation "androidx.core:core-ktx:$rootProject.coreKtxVersion"

@@ -1,4 +1,4 @@
-package fr.sample.hexagonalarchitecture.commons_io
+package fr.sample.hexagonalarchitecture.commons_lang
 
 import kotlinx.coroutines.runBlocking
 import org.assertj.core.api.Assertions.assertThat
