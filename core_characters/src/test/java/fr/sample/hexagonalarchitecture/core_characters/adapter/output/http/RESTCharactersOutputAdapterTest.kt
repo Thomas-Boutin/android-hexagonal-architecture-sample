@@ -2,6 +2,7 @@ package fr.sample.hexagonalarchitecture.core_characters.adapter.output.http
 
 import fr.sample.hexagonalarchitecture.commons_io.OutputAdapterScopeMain
 import fr.sample.hexagonalarchitecture.commons_io.OutputAdapterScopeWorker
+import fr.sample.hexagonalarchitecture.commons_lang.wrapInResource
 import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterDetail
 import io.mockk.coEvery
 import io.mockk.mockk
@@ -48,34 +49,16 @@ class RESTCharactersOutputAdapterTest {
             CharacterDetail(id = "id1", name = "bob", isAlive = true)
         )
     }
-/*
+
     @Test
     fun `should propagate error`() = runTest {
-        val getCharactersQuery = GetCharactersQuery()
-        val apolloCall = mockk<ApolloCall<GetCharactersQuery.Data>>(relaxed = true)
-        coEvery { getCharactersQueryFactory.create() } returns getCharactersQuery
-        coEvery { apolloClient.query(getCharactersQuery) } returns apolloCall
-        coEvery { apolloCall.execute() } returns ApolloResponse.Builder(
-            mockk(),
-            mockk(),
-            GetCharactersQuery.Data(
-                characters = null,
-            )
-        ).errors(
-            listOf(
-                Error(
-                    message = "500",
-                    locations = null,
-                    extensions = null,
-                    path = null,
-                    nonStandardFields = null
-                )
-            )
-        ).build()
+        coEvery { restCharactersApi.getCharacterWith(any()) } throws java.lang.RuntimeException(
+            "[500]"
+        )
 
-        val result = wrapInResource { graphQLCharactersOutputAdapter.getCharacters() }
-        Assertions.assertThat(result.exceptionOrNull())
+        val result = wrapInResource { restCharactersOutputAdapter.getCharacterDetailWith("id") }
+        assertThat(result.exceptionOrNull())
             .isInstanceOf(RuntimeException::class.java)
             .hasMessage("[500]")
-    }*/
+    }
 }
