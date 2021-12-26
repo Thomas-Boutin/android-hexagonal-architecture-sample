@@ -1,7 +1,9 @@
 package fr.sample.hexagonalarchitecture.core_characters.application.port
 
+import fr.sample.hexagonalarchitecture.core_characters.application.port.output.GetCharacterDetailPort
 import fr.sample.hexagonalarchitecture.core_characters.application.port.output.GetCharactersPort
 import fr.sample.hexagonalarchitecture.core_characters.domain.Character
+import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterDetail
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
@@ -16,13 +18,15 @@ import org.junit.Test
 
 class CharactersServiceTest {
     private lateinit var getCharactersPort: GetCharactersPort
+    private lateinit var getCharacterDetailPort: GetCharacterDetailPort
     private lateinit var charactersService: CharactersService
 
     @Before
     fun setUp() {
         Dispatchers.setMain(StandardTestDispatcher())
         getCharactersPort = mockk(relaxed = true)
-        charactersService = CharactersService(getCharactersPort)
+        getCharacterDetailPort = mockk(relaxed = true)
+        charactersService = CharactersService(getCharactersPort, getCharacterDetailPort)
     }
 
     @After
@@ -45,11 +49,36 @@ class CharactersServiceTest {
     }
 
     @Test
-    fun `should propagate error`() = runTest {
+    fun `should propagate error when fetching new characters`() = runTest {
         coEvery { getCharactersPort.getCharacters() } throws Exception("Unable to fetch characters")
 
         assertThat(charactersService.getCharacters().exceptionOrNull())
             .isExactlyInstanceOf(Exception::class.java)
             .hasMessage("Unable to fetch characters")
+    }
+
+    @Test
+    fun `should fetch character's detail`() = runTest {
+        coEvery { getCharacterDetailPort.getCharacterDetailWith(any()) } returns CharacterDetail(
+            id = "id",
+            name = "bob",
+            isAlive = true
+        )
+        assertThat(charactersService.getCharacterDetailWith("id").dataOrNull()).isEqualTo(
+            CharacterDetail(
+                id = "id",
+                name = "bob",
+                isAlive = true
+            )
+        )
+    }
+
+    @Test
+    fun `should propagate error when fetching character's detail`() = runTest {
+        coEvery { getCharacterDetailPort.getCharacterDetailWith(any()) } throws Exception("Unable to fetch character detail")
+
+        assertThat(charactersService.getCharacterDetailWith("id").exceptionOrNull())
+            .isExactlyInstanceOf(Exception::class.java)
+            .hasMessage("Unable to fetch character detail")
     }
 }
