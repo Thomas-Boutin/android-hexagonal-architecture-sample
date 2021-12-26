@@ -34,7 +34,7 @@ class CharacterDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.fetchCharacterDetail(characterDetailFragmentArgs.characterId)
+        viewModel.fetchCharacterDetailWith(characterDetailFragmentArgs.characterId)
     }
 
     private fun initView(binding: FragmentCharacterDetailBinding) = binding.apply {

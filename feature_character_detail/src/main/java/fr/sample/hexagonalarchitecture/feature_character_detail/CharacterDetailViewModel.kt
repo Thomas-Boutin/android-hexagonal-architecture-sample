@@ -19,7 +19,7 @@ class CharacterDetailViewModel @Inject constructor(
     )
         private set
 
-    fun fetchCharacterDetail(characterId: String) = viewModelScope.launch {
-        characterDetail.value = charactersInputAdapter.getCharacterDetail(characterId)
+    fun fetchCharacterDetailWith(characterId: String) = viewModelScope.launch {
+        characterDetail.value = charactersInputAdapter.getCharacterDetailWith(characterId)
     }
 }

@@ -35,10 +35,10 @@ class CharacterDetailViewModelTest {
 
     @Test
     fun `should fetch new characters`() = runTest {
-        coEvery { charactersInputAdapter.getCharacterDetail(any()) } returns Resource.Success(
+        coEvery { charactersInputAdapter.getCharacterDetailWith(any()) } returns Resource.Success(
             CharacterDetail(id = "id1", name = "bob", isAlive = true),
         )
-        viewModel.fetchCharacterDetail("id1")
+        viewModel.fetchCharacterDetailWith("id1")
 
         advanceUntilIdle()
 
@@ -49,10 +49,10 @@ class CharacterDetailViewModelTest {
 
     @Test
     fun `should propagate error`() = runTest {
-        coEvery { charactersInputAdapter.getCharacterDetail(any()) } returns Resource.Error(
+        coEvery { charactersInputAdapter.getCharacterDetailWith(any()) } returns Resource.Error(
             Exception("Unable to fetch characters")
         )
-        viewModel.fetchCharacterDetail("id1")
+        viewModel.fetchCharacterDetailWith("id1")
 
         advanceUntilIdle()
 

@@ -37,7 +37,7 @@ class CharactersServiceTest {
             Character(id = "id2", name = "pamela"),
             Character(id = "id3", name = "gaga")
         )
-        assertThat(charactersService.getCharacters().getOrNull()).containsExactly(
+        assertThat(charactersService.getCharacters().dataOrNull()).containsExactly(
             Character(id = "id1", name = "bob"),
             Character(id = "id2", name = "pamela"),
             Character(id = "id3", name = "gaga")
