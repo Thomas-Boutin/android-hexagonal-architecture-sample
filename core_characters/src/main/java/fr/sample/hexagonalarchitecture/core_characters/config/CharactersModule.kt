@@ -7,12 +7,14 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import fr.sample.hexagonalarchitecture.core_characters.adapter.output.http.GetCharactersQueryFactory
 import fr.sample.hexagonalarchitecture.core_characters.adapter.output.http.GraphQLCharactersOutputAdapter
+import fr.sample.hexagonalarchitecture.core_characters.adapter.output.http.RESTCharactersApi
 import fr.sample.hexagonalarchitecture.core_characters.adapter.output.http.RESTCharactersOutputAdapter
 import fr.sample.hexagonalarchitecture.core_characters.application.port.CharactersService
 import fr.sample.hexagonalarchitecture.core_characters.application.port.input.GetCharacterDetailUseCase
 import fr.sample.hexagonalarchitecture.core_characters.application.port.input.GetCharactersUseCase
 import fr.sample.hexagonalarchitecture.core_characters.application.port.output.GetCharacterDetailPort
 import fr.sample.hexagonalarchitecture.core_characters.application.port.output.GetCharactersPort
+import retrofit2.Retrofit
 import javax.inject.Singleton
 
 @Module
@@ -34,5 +36,11 @@ abstract class CharactersModule {
         @Provides
         @Singleton
         fun providesGetCharactersQueryFactory() = GetCharactersQueryFactory()
+
+        @Provides
+        @Singleton
+        fun providesRESTCharactersApi(retrofit: Retrofit): RESTCharactersApi{
+            return retrofit.create(RESTCharactersApi::class.java)
+        }
     }
 }

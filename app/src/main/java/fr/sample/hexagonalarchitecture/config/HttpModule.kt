@@ -28,12 +28,15 @@ object HttpModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(): Retrofit  {
+    fun provideRetrofit(): Retrofit {
         val contentType = CONTENT_TYPE_JSON.toMediaType()
+        val converterFactory = Json {
+            ignoreUnknownKeys = true
+        }.asConverterFactory(contentType)
 
         return Retrofit.Builder()
             .baseUrl(BuildConfig.API_URL_REST)
-            .addConverterFactory(Json.asConverterFactory(contentType))
+            .addConverterFactory(converterFactory)
             .build()
     }
 }
