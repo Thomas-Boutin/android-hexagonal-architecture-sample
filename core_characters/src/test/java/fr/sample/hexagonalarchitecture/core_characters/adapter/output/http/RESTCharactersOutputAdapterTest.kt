@@ -40,13 +40,13 @@ class RESTCharactersOutputAdapterTest {
     @Test
     fun `should fetch new characters`() = runTest {
         coEvery { restCharactersApi.getCharacterWith(any()) } returns RESTCharacter(
-            id = "id1",
+            id = 1,
             name = "bob",
             status = "dead",
         )
 
         assertThat(restCharactersOutputAdapter.getCharacterDetailWith("id1")).isEqualTo(
-            CharacterDetail(id = "id1", name = "bob", status = "dead")
+            CharacterDetail(id = "1", name = "bob", status = "dead")
         )
     }
 
