@@ -8,7 +8,7 @@ class CharacterIdTest {
 
     @Test
     fun `should wrap value`() {
-        assertThat(CharacterId("id").value).isEqualTo("id")
+        assertThat(CharacterId("id").toString()).isEqualTo("id")
     }
 
     @Test

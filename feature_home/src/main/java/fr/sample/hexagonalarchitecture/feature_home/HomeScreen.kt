@@ -35,7 +35,7 @@ private fun CharacterItem(character: Character, onCharacterClicked: (String) -> 
         modifier = Modifier
             .fillMaxWidth()
             .padding(15.dp)
-            .clickable { onCharacterClicked(character.id.value) },
+            .clickable { onCharacterClicked(character.id.toString()) },
         elevation = 10.dp
     ) {
         Column(
