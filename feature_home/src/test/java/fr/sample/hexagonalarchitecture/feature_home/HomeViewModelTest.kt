@@ -4,6 +4,7 @@ import fr.sample.hexagonalarchitecture.commons_lang.Resource
 import fr.sample.hexagonalarchitecture.core_characters.adapter.input.CharactersInputAdapter
 import fr.sample.hexagonalarchitecture.core_characters.domain.Character
 import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterId
+import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterName
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
@@ -38,9 +39,9 @@ class HomeViewModelTest {
     fun `should fetch new characters`() = runTest {
         coEvery { charactersInputAdapter.getCharacters() } returns Resource.Success(
             listOf(
-                Character(id = CharacterId("id1"), name = "bob"),
-                Character(id = CharacterId("id2"), name = "pamela"),
-                Character(id = CharacterId("id3"), name = "gaga")
+                Character(id = CharacterId("id1"), name = CharacterName("bob")),
+                Character(id = CharacterId("id2"), name = CharacterName("pamela")),
+                Character(id = CharacterId("id3"), name = CharacterName("gaga"))
             )
         )
         viewModel.fetchCharacters()
@@ -48,9 +49,9 @@ class HomeViewModelTest {
         advanceUntilIdle()
 
         assertThat(viewModel.characters.value.dataOrNull()).containsExactly(
-            Character(id = CharacterId("id1"), name = "bob"),
-            Character(id = CharacterId("id2"), name = "pamela"),
-            Character(id = CharacterId("id3"), name = "gaga")
+            Character(id = CharacterId("id1"), name = CharacterName("bob")),
+            Character(id = CharacterId("id2"), name = CharacterName("pamela")),
+            Character(id = CharacterId("id3"), name = CharacterName("gaga"))
         )
     }
 

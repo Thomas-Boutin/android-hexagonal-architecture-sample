@@ -4,6 +4,7 @@ import fr.sample.hexagonalarchitecture.commons_lang.Resource
 import fr.sample.hexagonalarchitecture.core_characters.adapter.input.CharactersInputAdapter
 import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterDetail
 import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterId
+import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterName
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
@@ -37,14 +38,14 @@ class CharacterDetailViewModelTest {
     @Test
     fun `should fetch new characters`() = runTest {
         coEvery { charactersInputAdapter.getCharacterDetailWith(any()) } returns Resource.Success(
-            CharacterDetail(id = CharacterId("id1"), name = "bob", status = "dead"),
+            CharacterDetail(id = CharacterId("id1"), name = CharacterName("bob"), status = "dead"),
         )
         viewModel.fetchCharacterDetailWith("id1")
 
         advanceUntilIdle()
 
         assertThat(viewModel.characterDetail.value.dataOrNull()).isEqualTo(
-            CharacterDetail(id = CharacterId("id1"), name = "bob", status = "dead"),
+            CharacterDetail(id = CharacterId("id1"), name = CharacterName("bob"), status = "dead"),
         )
     }
 

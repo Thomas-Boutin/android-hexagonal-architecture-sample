@@ -9,6 +9,7 @@ import fr.sample.hexagonalarchitecture.commons_io.OutputAdapterScopeWorker
 import fr.sample.hexagonalarchitecture.core_characters.application.port.output.GetCharactersPort
 import fr.sample.hexagonalarchitecture.core_characters.domain.Character
 import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterId
+import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterName
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -39,5 +40,5 @@ private fun <D: Operation.Data> ApolloResponse<D>.getDataOrThrow(): D {
 }
 
 private fun GetCharactersQuery.Result.mapToCharacter(): Character {
-    return Character(id = CharacterId(id.orEmpty()), name = name.orEmpty())
+    return Character(id = CharacterId(id.orEmpty()), name = CharacterName(name.orEmpty()))
 }

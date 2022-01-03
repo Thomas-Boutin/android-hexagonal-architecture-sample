@@ -10,13 +10,12 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.capitalize
-import androidx.compose.ui.text.intl.LocaleList
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import fr.sample.hexagonalarchitecture.commons_android.theme.MyApplicationTheme
 import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterDetail
 import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterId
+import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterName
 
 @Composable
 fun CharacterDetailScreen(characterDetail: CharacterDetail) {
@@ -30,7 +29,7 @@ fun CharacterDetailScreen(characterDetail: CharacterDetail) {
             modifier = Modifier.padding(10.dp)
         ) {
             Text(
-                text = characterDetail.name.capitalize(LocaleList.current),
+                text = characterDetail.name.capitalize(),
                 style = MaterialTheme.typography.body1,
             )
             Text(
@@ -47,7 +46,7 @@ private fun CharacterDetailScreenPreview() {
     MyApplicationTheme {
         Surface {
             CharacterDetailScreen(
-                CharacterDetail(id = CharacterId("id1"), name = "bob", status = "dead"),
+                CharacterDetail(id = CharacterId("id1"), name = CharacterName("bob"), status = "dead"),
             )
         }
     }

@@ -7,6 +7,7 @@ import fr.sample.hexagonalarchitecture.core_characters.application.port.input.Ge
 import fr.sample.hexagonalarchitecture.core_characters.domain.Character
 import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterDetail
 import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterId
+import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterName
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
@@ -46,15 +47,15 @@ class CharactersInputAdapterTest {
     fun `should fetch new characters`() = runTest {
         coEvery { getCharactersUseCase.getCharacters() } returns Resource.Success(
             listOf(
-                Character(id = CharacterId("id1"), name = "bob"),
-                Character(id = CharacterId("id2"), name = "pamela"),
-                Character(id = CharacterId("id3"), name = "gaga")
+                Character(id = CharacterId("id1"), name = CharacterName("bob")),
+                Character(id = CharacterId("id2"), name = CharacterName("pamela")),
+                Character(id = CharacterId("id3"), name = CharacterName("gaga"))
             )
         )
         assertThat(charactersInputAdapter.getCharacters().dataOrNull()).containsExactly(
-            Character(id = CharacterId("id1"), name = "bob"),
-            Character(id = CharacterId("id2"), name = "pamela"),
-            Character(id = CharacterId("id3"), name = "gaga")
+            Character(id = CharacterId("id1"), name = CharacterName("bob")),
+            Character(id = CharacterId("id2"), name = CharacterName("pamela")),
+            Character(id = CharacterId("id3"), name = CharacterName("gaga"))
         )
     }
 
@@ -72,10 +73,10 @@ class CharactersInputAdapterTest {
     @Test
     fun `should fetch character's detail`() = runTest {
         coEvery { getCharacterDetailUseCase.getCharacterDetailWith(any()) } returns Resource.Success(
-            CharacterDetail(id = CharacterId("id1"), name = "bob", status = "dead")
+            CharacterDetail(id = CharacterId("id1"), name = CharacterName("bob"), status = "dead")
         )
         assertThat(charactersInputAdapter.getCharacterDetailWith("id").dataOrNull()).isEqualTo(
-            CharacterDetail(id = CharacterId("id1"), name = "bob", status = "dead")
+            CharacterDetail(id = CharacterId("id1"), name = CharacterName("bob"), status = "dead")
         )
     }
 

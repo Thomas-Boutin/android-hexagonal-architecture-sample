@@ -5,6 +5,7 @@ import fr.sample.hexagonalarchitecture.commons_io.OutputAdapterScopeWorker
 import fr.sample.hexagonalarchitecture.commons_lang.wrapInResource
 import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterDetail
 import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterId
+import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterName
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
@@ -47,7 +48,7 @@ class RESTCharactersOutputAdapterTest {
         )
 
         assertThat(restCharactersOutputAdapter.getCharacterDetailWith("id1")).isEqualTo(
-            CharacterDetail(id = CharacterId("1"), name = "bob", status = "dead")
+              CharacterDetail(id = CharacterId("1"), name = CharacterName("bob"), status = "dead")
         )
     }
 

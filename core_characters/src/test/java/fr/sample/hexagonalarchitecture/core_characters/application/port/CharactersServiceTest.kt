@@ -5,6 +5,7 @@ import fr.sample.hexagonalarchitecture.core_characters.application.port.output.G
 import fr.sample.hexagonalarchitecture.core_characters.domain.Character
 import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterDetail
 import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterId
+import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterName
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
@@ -38,14 +39,14 @@ class CharactersServiceTest {
     @Test
     fun `should fetch new characters`() = runTest {
         coEvery { getCharactersPort.getCharacters() } returns listOf(
-            Character(id = CharacterId("id1"), name = "bob"),
-            Character(id = CharacterId("id2"), name = "pamela"),
-            Character(id = CharacterId("id3"), name = "gaga")
+            Character(id = CharacterId("id1"), name = CharacterName("bob")),
+            Character(id = CharacterId("id2"), name = CharacterName("pamela")),
+            Character(id = CharacterId("id3"), name = CharacterName("gaga"))
         )
         assertThat(charactersService.getCharacters().dataOrNull()).containsExactly(
-            Character(id = CharacterId("id1"), name = "bob"),
-            Character(id = CharacterId("id2"), name = "pamela"),
-            Character(id = CharacterId("id3"), name = "gaga")
+            Character(id = CharacterId("id1"), name = CharacterName("bob")),
+            Character(id = CharacterId("id2"), name = CharacterName("pamela")),
+            Character(id = CharacterId("id3"), name = CharacterName("gaga"))
         )
     }
 
@@ -62,13 +63,13 @@ class CharactersServiceTest {
     fun `should fetch character's detail`() = runTest {
         coEvery { getCharacterDetailPort.getCharacterDetailWith(any()) } returns CharacterDetail(
             id = CharacterId("id"),
-            name = "bob",
+            name = CharacterName("bob"),
             status = "dead",
         )
         assertThat(charactersService.getCharacterDetailWith("id").dataOrNull()).isEqualTo(
             CharacterDetail(
                 id = CharacterId("id"),
-                name = "bob",
+                name = CharacterName("bob"),
                 status = "dead",
             )
         )
