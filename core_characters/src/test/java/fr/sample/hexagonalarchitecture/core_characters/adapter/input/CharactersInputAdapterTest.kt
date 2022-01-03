@@ -76,7 +76,7 @@ class CharactersInputAdapterTest {
                 status = CharacterStatus.Dead
             )
         )
-        assertThat(charactersInputAdapter.getCharacterDetailWith("id").dataOrNull()).isEqualTo(
+        assertThat(charactersInputAdapter.getCharacterDetailWith(CharacterId("id")).dataOrNull()).isEqualTo(
             CharacterDetail(
                 id = CharacterId("id1"),
                 name = CharacterName("bob"),
@@ -91,7 +91,7 @@ class CharactersInputAdapterTest {
             Exception("Unable to fetch characters")
         )
 
-        assertThat(charactersInputAdapter.getCharacterDetailWith("id").exceptionOrNull())
+        assertThat(charactersInputAdapter.getCharacterDetailWith(CharacterId("id")).exceptionOrNull())
             .isExactlyInstanceOf(Exception::class.java)
             .hasMessage("Unable to fetch character detail")
     }

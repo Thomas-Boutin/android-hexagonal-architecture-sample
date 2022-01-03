@@ -14,6 +14,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import fr.sample.hexagonalarchitecture.commons_android.extensions.initWith
 import fr.sample.hexagonalarchitecture.commons_lang.onError
 import fr.sample.hexagonalarchitecture.commons_lang.onSuccess
+import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterId
 import fr.sample.hexagonalarchitecture.feature_home.databinding.FragmentHomeBinding
 
 @AndroidEntryPoint
@@ -45,15 +46,15 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun goToCharacterDetail(characterId: String) {
+    private fun goToCharacterDetail(characterId: CharacterId) {
         HomeFragmentDirections
-            .actionHomeFragmentToNavGraphCharacterDetail(characterId)
+            .actionHomeFragmentToNavGraphCharacterDetail(characterId.toString())
             .let { findNavController().navigate(it) }
     }
 }
 
 @Composable
-fun HomeFragmentScreen(viewModel: HomeViewModel, onCharacterClicked: (String) -> Unit) {
+fun HomeFragmentScreen(viewModel: HomeViewModel, onCharacterClicked: (CharacterId) -> Unit) {
     viewModel.characters.value.onSuccess {
         HomeScreen(characters = it, onCharacterClicked = onCharacterClicked)
     }.onError {

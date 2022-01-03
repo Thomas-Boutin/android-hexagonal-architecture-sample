@@ -8,6 +8,7 @@ import fr.sample.hexagonalarchitecture.core_characters.application.port.output.G
 import fr.sample.hexagonalarchitecture.core_characters.application.port.output.GetCharactersPort
 import fr.sample.hexagonalarchitecture.core_characters.domain.Character
 import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterDetail
+import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterId
 import javax.inject.Inject
 
 class CharactersService @Inject constructor(
@@ -20,7 +21,7 @@ class CharactersService @Inject constructor(
         }
     }
 
-    override suspend fun getCharacterDetailWith(characterId: String): Resource<CharacterDetail> {
+    override suspend fun getCharacterDetailWith(characterId: CharacterId): Resource<CharacterDetail> {
         return wrapInResource {
             getCharacterDetailPort.getCharacterDetailWith(characterId)
         }

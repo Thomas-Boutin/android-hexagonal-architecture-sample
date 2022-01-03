@@ -4,6 +4,7 @@ import fr.sample.hexagonalarchitecture.commons_io.InputAdapter
 import fr.sample.hexagonalarchitecture.commons_io.InputAdapterScope
 import fr.sample.hexagonalarchitecture.core_characters.application.port.input.GetCharacterDetailUseCase
 import fr.sample.hexagonalarchitecture.core_characters.application.port.input.GetCharactersUseCase
+import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterId
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -17,7 +18,7 @@ class CharactersInputAdapter @Inject constructor(
         getCharactersUseCase.getCharacters()
     }
 
-    suspend fun getCharacterDetailWith(characterId: String) = withContext(adapterScope.coroutineContext) {
+    suspend fun getCharacterDetailWith(characterId: CharacterId) = withContext(adapterScope.coroutineContext) {
         getCharacterDetailUseCase.getCharacterDetailWith(characterId)
     }
 }

@@ -41,7 +41,7 @@ class CharacterDetailViewModelTest {
         coEvery { charactersInputAdapter.getCharacterDetailWith(any()) } returns Resource.Success(
             CharacterDetail(id = CharacterId("id1"), name = CharacterName("bob"), status = CharacterStatus.Dead),
         )
-        viewModel.fetchCharacterDetailWith("id1")
+        viewModel.fetchCharacterDetailWith(CharacterId("id1"))
 
         advanceUntilIdle()
 
@@ -55,7 +55,7 @@ class CharacterDetailViewModelTest {
         coEvery { charactersInputAdapter.getCharacterDetailWith(any()) } returns Resource.Error(
             Exception("Unable to fetch characters")
         )
-        viewModel.fetchCharacterDetailWith("id1")
+        viewModel.fetchCharacterDetailWith(CharacterId("id1"))
 
         advanceUntilIdle()
 

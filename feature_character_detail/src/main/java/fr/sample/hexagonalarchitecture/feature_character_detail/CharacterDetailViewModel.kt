@@ -7,6 +7,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import fr.sample.hexagonalarchitecture.commons_lang.Resource
 import fr.sample.hexagonalarchitecture.core_characters.adapter.input.CharactersInputAdapter
 import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterDetail
+import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterId
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,7 +20,7 @@ class CharacterDetailViewModel @Inject constructor(
     )
         private set
 
-    fun fetchCharacterDetailWith(characterId: String) = viewModelScope.launch {
+    fun fetchCharacterDetailWith(characterId: CharacterId) = viewModelScope.launch {
         characterDetail.value = charactersInputAdapter.getCharacterDetailWith(characterId)
     }
 }

@@ -48,7 +48,7 @@ class RESTCharactersOutputAdapterTest {
             status = "dead",
         )
 
-        assertThat(restCharactersOutputAdapter.getCharacterDetailWith("id1")).isEqualTo(
+        assertThat(restCharactersOutputAdapter.getCharacterDetailWith(CharacterId("id1"))).isEqualTo(
             CharacterDetail(
                 id = CharacterId("1"),
                 name = CharacterName("bob"),
@@ -63,7 +63,7 @@ class RESTCharactersOutputAdapterTest {
             "[500]"
         )
 
-        val result = wrapInResource { restCharactersOutputAdapter.getCharacterDetailWith("id") }
+        val result = wrapInResource { restCharactersOutputAdapter.getCharacterDetailWith(CharacterId("id")) }
         assertThat(result.exceptionOrNull())
             .isInstanceOf(RuntimeException::class.java)
             .hasMessage("[500]")

@@ -20,7 +20,7 @@ import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterId
 import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterName
 
 @Composable
-fun HomeScreen(characters: List<Character>, onCharacterClicked: (String) -> Unit) {
+fun HomeScreen(characters: List<Character>, onCharacterClicked: (CharacterId) -> Unit) {
     LazyColumn {
         items(items = characters, key = { it.id.toString() }) { character ->
             CharacterItem(character, onCharacterClicked)
@@ -29,12 +29,12 @@ fun HomeScreen(characters: List<Character>, onCharacterClicked: (String) -> Unit
 }
 
 @Composable
-private fun CharacterItem(character: Character, onCharacterClicked: (String) -> Unit) {
+private fun CharacterItem(character: Character, onCharacterClicked: (CharacterId) -> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
             .padding(15.dp)
-            .clickable { onCharacterClicked(character.id.toString()) },
+            .clickable { onCharacterClicked(character.id) },
         elevation = 10.dp
     ) {
         Column(

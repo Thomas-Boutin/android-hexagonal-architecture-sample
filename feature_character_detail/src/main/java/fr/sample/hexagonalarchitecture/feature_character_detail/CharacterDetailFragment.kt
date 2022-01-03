@@ -14,11 +14,13 @@ import dagger.hilt.android.AndroidEntryPoint
 import fr.sample.hexagonalarchitecture.commons_android.extensions.initWith
 import fr.sample.hexagonalarchitecture.commons_lang.onError
 import fr.sample.hexagonalarchitecture.commons_lang.onSuccess
+import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterId
 import fr.sample.hexagonalarchitecture.feature_character_detail.databinding.FragmentCharacterDetailBinding
 
 @AndroidEntryPoint
 class CharacterDetailFragment : Fragment() {
     private val characterDetailFragmentArgs: CharacterDetailFragmentArgs by navArgs()
+    private val characterId: CharacterId by lazy { CharacterId(characterDetailFragmentArgs.characterId) }
     private val viewModel: CharacterDetailViewModel by viewModels()
 
     override fun onCreateView(
@@ -34,7 +36,7 @@ class CharacterDetailFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.fetchCharacterDetailWith(characterDetailFragmentArgs.characterId)
+        viewModel.fetchCharacterDetailWith(characterId)
     }
 
     private fun initView(binding: FragmentCharacterDetailBinding) = binding.apply {
