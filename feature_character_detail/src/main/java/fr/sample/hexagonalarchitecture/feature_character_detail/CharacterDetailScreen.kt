@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import fr.sample.hexagonalarchitecture.commons_android.theme.MyApplicationTheme
 import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterDetail
+import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterId
 
 @Composable
 fun CharacterDetailScreen(characterDetail: CharacterDetail) {
@@ -46,7 +47,7 @@ private fun CharacterDetailScreenPreview() {
     MyApplicationTheme {
         Surface {
             CharacterDetailScreen(
-                CharacterDetail(id = "id1", name = "bob", status = "dead"),
+                CharacterDetail(id = CharacterId("id1"), name = "bob", status = "dead"),
             )
         }
     }

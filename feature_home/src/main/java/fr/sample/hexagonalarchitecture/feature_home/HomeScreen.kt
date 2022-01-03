@@ -18,6 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import fr.sample.hexagonalarchitecture.commons_android.theme.MyApplicationTheme
 import fr.sample.hexagonalarchitecture.core_characters.domain.Character
+import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterId
 
 @Composable
 fun HomeScreen(characters: List<Character>, onCharacterClicked: (String) -> Unit) {
@@ -34,7 +35,7 @@ private fun CharacterItem(character: Character, onCharacterClicked: (String) -> 
         modifier = Modifier
             .fillMaxWidth()
             .padding(15.dp)
-            .clickable { onCharacterClicked(character.id) },
+            .clickable { onCharacterClicked(character.id.value) },
         elevation = 10.dp
     ) {
         Column(
@@ -55,9 +56,9 @@ private fun HomeScreenPreview() {
         Surface {
             HomeScreen(
                 listOf(
-                    Character(id = "id1", name = "bob"),
-                    Character(id = "id2", name = "pamela"),
-                    Character(id = "id3", name = "gaga")
+                    Character(id = CharacterId("id1"), name = "bob"),
+                    Character(id = CharacterId("id2"), name = "pamela"),
+                    Character(id = CharacterId("id3"), name = "gaga")
                 )
             ) {}
         }
@@ -70,7 +71,7 @@ private fun CharacterItemPreview() {
     MyApplicationTheme {
         Surface {
             CharacterItem(
-                character = Character(id = "id1", name = "gaga")
+                character = Character(id = CharacterId("id1"), name = "gaga")
             ) { }
         }
     }

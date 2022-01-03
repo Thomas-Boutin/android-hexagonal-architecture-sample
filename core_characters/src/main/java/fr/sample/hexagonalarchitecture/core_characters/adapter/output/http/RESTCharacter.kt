@@ -1,6 +1,7 @@
 package fr.sample.hexagonalarchitecture.core_characters.adapter.output.http
 
 import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterDetail
+import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterId
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
@@ -15,7 +16,7 @@ data class RESTCharacter(
 ) {
     fun toCharacterDetail(): CharacterDetail {
         return CharacterDetail(
-            id = id.toString(),
+            id = CharacterId(id.toString()),
             name = name,
             status = status,
         )
