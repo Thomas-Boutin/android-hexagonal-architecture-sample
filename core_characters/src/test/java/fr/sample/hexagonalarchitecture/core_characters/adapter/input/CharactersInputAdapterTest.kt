@@ -4,10 +4,7 @@ import fr.sample.hexagonalarchitecture.commons_io.InputAdapterScope
 import fr.sample.hexagonalarchitecture.commons_lang.Resource
 import fr.sample.hexagonalarchitecture.core_characters.application.port.input.GetCharacterDetailUseCase
 import fr.sample.hexagonalarchitecture.core_characters.application.port.input.GetCharactersUseCase
-import fr.sample.hexagonalarchitecture.core_characters.domain.Character
-import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterDetail
-import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterId
-import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterName
+import fr.sample.hexagonalarchitecture.core_characters.domain.*
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
@@ -73,10 +70,18 @@ class CharactersInputAdapterTest {
     @Test
     fun `should fetch character's detail`() = runTest {
         coEvery { getCharacterDetailUseCase.getCharacterDetailWith(any()) } returns Resource.Success(
-            CharacterDetail(id = CharacterId("id1"), name = CharacterName("bob"), status = "dead")
+            CharacterDetail(
+                id = CharacterId("id1"),
+                name = CharacterName("bob"),
+                status = CharacterStatus.Dead
+            )
         )
         assertThat(charactersInputAdapter.getCharacterDetailWith("id").dataOrNull()).isEqualTo(
-            CharacterDetail(id = CharacterId("id1"), name = CharacterName("bob"), status = "dead")
+            CharacterDetail(
+                id = CharacterId("id1"),
+                name = CharacterName("bob"),
+                status = CharacterStatus.Dead
+            )
         )
     }
 

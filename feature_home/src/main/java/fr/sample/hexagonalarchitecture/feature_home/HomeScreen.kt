@@ -22,7 +22,7 @@ import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterName
 @Composable
 fun HomeScreen(characters: List<Character>, onCharacterClicked: (String) -> Unit) {
     LazyColumn {
-        items(items = characters, key = { it.id }) { character ->
+        items(items = characters, key = { it.id.toString() }) { character ->
             CharacterItem(character, onCharacterClicked)
         }
     }

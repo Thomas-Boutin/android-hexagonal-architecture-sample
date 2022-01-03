@@ -2,10 +2,7 @@ package fr.sample.hexagonalarchitecture.core_characters.application.port
 
 import fr.sample.hexagonalarchitecture.core_characters.application.port.output.GetCharacterDetailPort
 import fr.sample.hexagonalarchitecture.core_characters.application.port.output.GetCharactersPort
-import fr.sample.hexagonalarchitecture.core_characters.domain.Character
-import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterDetail
-import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterId
-import fr.sample.hexagonalarchitecture.core_characters.domain.CharacterName
+import fr.sample.hexagonalarchitecture.core_characters.domain.*
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.Dispatchers
@@ -64,13 +61,13 @@ class CharactersServiceTest {
         coEvery { getCharacterDetailPort.getCharacterDetailWith(any()) } returns CharacterDetail(
             id = CharacterId("id"),
             name = CharacterName("bob"),
-            status = "dead",
+            status = CharacterStatus.Dead,
         )
         assertThat(charactersService.getCharacterDetailWith("id").dataOrNull()).isEqualTo(
             CharacterDetail(
                 id = CharacterId("id"),
                 name = CharacterName("bob"),
-                status = "dead",
+                status = CharacterStatus.Dead,
             )
         )
     }
