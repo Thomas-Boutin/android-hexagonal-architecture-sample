@@ -69,7 +69,7 @@ class CharactersInputAdapterTest {
 
     @Test
     fun `should fetch character's detail`() = runTest {
-        coEvery { getCharacterDetailUseCase.getCharacterDetailWith(any()) } returns Resource.Success(
+        coEvery { getCharacterDetailUseCase.getCharacterDetailWith(CharacterId(any())) } returns Resource.Success(
             CharacterDetail(
                 id = CharacterId("id1"),
                 name = CharacterName("bob"),
@@ -87,8 +87,8 @@ class CharactersInputAdapterTest {
 
     @Test
     fun `should propagate error when fetches character detail`() = runTest {
-        coEvery { getCharacterDetailUseCase.getCharacterDetailWith(any()) } returns Resource.Error(
-            Exception("Unable to fetch characters")
+        coEvery { getCharacterDetailUseCase.getCharacterDetailWith(CharacterId(any())) } returns Resource.Error(
+            Exception("Unable to fetch characters detail")
         )
 
         assertThat(charactersInputAdapter.getCharacterDetailWith(CharacterId("id")).exceptionOrNull())
