@@ -93,6 +93,6 @@ class CharactersInputAdapterTest {
 
         assertThat(charactersInputAdapter.getCharacterDetailWith(CharacterId("id")).exceptionOrNull())
             .isExactlyInstanceOf(Exception::class.java)
-            .hasMessage("Unable to fetch character detail")
+            .hasMessage("Unable to fetch characters detail")
     }
 }
