@@ -58,7 +58,7 @@ class CharactersServiceTest {
 
     @Test
     fun `should fetch character's detail`() = runTest {
-        coEvery { getCharacterDetailPort.getCharacterDetailWith(any()) } returns CharacterDetail(
+        coEvery { getCharacterDetailPort.getCharacterDetailWith(CharacterId(any())) } returns CharacterDetail(
             id = CharacterId("id"),
             name = CharacterName("bob"),
             status = CharacterStatus.Dead,
@@ -74,7 +74,7 @@ class CharactersServiceTest {
 
     @Test
     fun `should propagate error when fetching character's detail`() = runTest {
-        coEvery { getCharacterDetailPort.getCharacterDetailWith(any()) } throws Exception("Unable to fetch character detail")
+        coEvery { getCharacterDetailPort.getCharacterDetailWith(CharacterId(any())) } throws Exception("Unable to fetch character detail")
 
         assertThat(charactersService.getCharacterDetailWith(CharacterId("id")).exceptionOrNull())
             .isExactlyInstanceOf(Exception::class.java)
